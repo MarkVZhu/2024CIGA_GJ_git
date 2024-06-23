@@ -22,16 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 80a67a68886d5024b973405c874a497b
-    m_Address: SettingsPopup
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 935fb31fb09c88b4194f3879f482e53d
-    m_Address: WinPopup
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60abbb6dd1bebb342a5b9f964e3db293
     m_Address: HUDScreen
     m_ReadOnly: 0
