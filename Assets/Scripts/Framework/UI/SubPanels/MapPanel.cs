@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MarkFramework;
+using TMPro;
 
 public class MapPanel : BasePanel {
 
@@ -17,8 +18,14 @@ public class MapPanel : BasePanel {
 	// Use this for initialization
 	void Start () {
 		//开始逻辑
-		//FIXME：判断关卡是否解锁
-		ResMgr.Instance.Load<Sprite>("Lock");
+		if(!false) //TODO:改成读取so Level3同理
+		{
+			Button bt = GetControl<Button>("btnLevel2");
+			bt.interactable = false;
+			
+			// Image im = GetControl<Image>("btnLevel2");
+			// im.sprite = ResMgr.Instance.Load<Sprite>("Image/testLevel");
+		}
 	}
 
 	private void Drag(BaseEventData data)
@@ -47,25 +54,24 @@ public class MapPanel : BasePanel {
 	{
 		switch(btnName)
 		{
-			case "btnCont":
-				Debug.Log("btnCont被点击");
-				UIManager.Instance.HidePanel("PausePanel");
-				//ScenesMgr.Instance.LoadScene("Sa", fun); //加载关卡
+			case "btnLevel1":
+				UIManager.Instance.HidePanel("MapPanel");
+				//ScenesMgr.Instance.LoadScene("Level1", fun); //加载关卡
 				break;
-			case "btnResume":
-				Debug.Log("btnResume被点击");
+			case "btnLevel2":
+				UIManager.Instance.HidePanel("MapPanel");
+				//ScenesMgr.Instance.LoadScene("Level2", fun); //加载关卡
 				break;
-			case "btnMain":
-				Debug.Log("btnMain被点击");
-				UIManager.Instance.HidePanel("PausePanel");
-				UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
+			case "btnLevel3":
+				UIManager.Instance.HidePanel("MapPanel");
+				//ScenesMgr.Instance.LoadScene("Level3", fun); //加载关卡
 				break;
 		}
 	}
 	
 	void fun()
 	{
-		
+		Debug.Log("加载完成");
 	}
 
 	protected override void OnValueChanged(string toggleName, bool value)
