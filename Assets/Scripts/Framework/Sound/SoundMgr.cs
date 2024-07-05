@@ -117,12 +117,12 @@ namespace MarkFramework
 		//Invoke before change scene, to avoid null pointer errors
 		public void StopAllSound()
 		{
-			foreach(AudioSource audioSource in soundList)
+			for(int i = soundList.Count - 1; i >= 0; i--)
 			{
-				soundList.Remove(audioSource);
-				audioSource.Stop();
-				GameObject.Destroy(audioSource);
-			}
+				soundList[i].Stop();
+				GameObject.Destroy(soundList[i]);	
+				soundList.RemoveAt(i);
+			} 
 		}
 	}
 }
