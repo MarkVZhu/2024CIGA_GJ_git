@@ -43,7 +43,7 @@ public class preResearchPanel : BasePanel {
 				//进入研究panel
 				UIManager.Instance.HidePanel("preResearchPanel");
 				//TODO:此处填入研究panel
-				UIManager.Instance.ShowPanel<ParticlePanel>("ParticlePanel");
+				//UIManager.Instance.ShowPanel<ParticlePanel>("ParticlePanel");
 				break;
 		}
 	}
