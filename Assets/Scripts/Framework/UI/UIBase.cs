@@ -11,7 +11,7 @@ public class UIBase : BasePanel
     void Start()
     {
         //进入主菜单
-        UIManager.Instance.ShowPanel<MapPanel>("MapPanel");
+        UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
         //TODO：播放音乐
         Time.timeScale = (1);
 

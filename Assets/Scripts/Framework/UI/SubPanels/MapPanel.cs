@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MarkFramework;
-using TMPro;
 
 public class MapPanel : BasePanel {
 	int btnnum = 3;//按钮数量
+	int starcnt = 0;
+	public LevelData curld;//当前玩家数据
 	protected override void Awake()
 	{
 		//一定不能少 因为需要执行父类的awake来初始化一些信息 比如找控件 加事件监听
@@ -29,17 +30,20 @@ public class MapPanel : BasePanel {
             {
 				string btnName = "btnLevel"+i;
 				Debug.Log(btnName);
-				BtnInit(btnName);
+				BtnInit(btnName,i);
             }
+		curld.Levels[0].isUnlocked = true;
 		//}
 	}
-	private void BtnInit(string btnName)
+	private void BtnInit(string btnName,int i)
     {
+		i--;//关卡从第一关开始但是序列化以0为初始编号
+        Debug.Log(curld.Levels[0].LevelName);
 		Button bt = GetControl<Button>(btnName);
 		bt.interactable = true;
 		Image btbg = GetControl<Image>(btnName);
 		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
-		if (false)//判断是否上锁，初始是上锁状态
+		if (!curld.Levels[i].isUnlocked)//判断是否上锁，初始是上锁状态
 		{
 			//上锁状态
 			bt.interactable = false;
@@ -48,8 +52,18 @@ public class MapPanel : BasePanel {
 		}
 		else 
 		{
-			//TODO:解锁
+			//判断获得了几颗星星
+			starcnt = curld.Levels[i].StarCount;
+			for(int j = 1; j <= starcnt; j++)
+            {
+				string starname = "star" + j ;
+				Image im = GetControl<Image>(starname);
+				Debug.Log(starname);
+				im.sprite = ResMgr.Instance.Load<Sprite>("Image/star");
+			}
+
 		}
+
 		
     }
 	private void Drag(BaseEventData data)
@@ -81,14 +95,20 @@ public class MapPanel : BasePanel {
 			case "btnLevel1":
 				UIManager.Instance.HidePanel("MapPanel");
 				ScenesMgr.Instance.LoadScene("Lev1", fun); //加载关卡
+				UIManager.Instance.HidePanel("MapPanel");
+				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;
 			case "btnLevel2":
 				UIManager.Instance.HidePanel("MapPanel");
 				ScenesMgr.Instance.LoadScene("Lev2", fun); //加载关卡
+				UIManager.Instance.HidePanel("MapPanel");
+				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;
 			case "btnLevel3":
 				UIManager.Instance.HidePanel("MapPanel");
 				ScenesMgr.Instance.LoadScene("Lev3", fun); //加载关卡
+				UIManager.Instance.HidePanel("MapPanel");
+				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;
 			case "btnMain":
 				UIManager.Instance.HidePanel("MapPanel");
