@@ -9,6 +9,6 @@ public class TestAddImage : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		spriteRender.sprite = ResMgr.Instance.Load<Sprite>("Image/GUI_2");
+		spriteRender.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI","GUI_2");
 	}
 }
