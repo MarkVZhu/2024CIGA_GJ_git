@@ -14,6 +14,7 @@ public class CreateBlock : MonoBehaviour
 	{
 		EventCenter.Instance.AddEventListener<Vector3>(E_EventType.E_Build_Block, BuildBlock);
 		EventCenter.Instance.AddEventListener(E_EventType.E_Delete_Block, LimitNumRestore);
+		EventCenter.Instance.AddEventListener<E_BlockNum>(E_EventType.E_Change_Block_For_Building, ChangeBlock);
 	}
 
 	void BuildBlock(Vector3 cellPosition)
@@ -37,5 +38,10 @@ public class CreateBlock : MonoBehaviour
 	void LimitNumRestore()
 	{
 		limitNum++;
+	}
+	
+	void ChangeBlock(E_BlockNum e)
+	{
+		e_BlockNum = e;
 	}
 }

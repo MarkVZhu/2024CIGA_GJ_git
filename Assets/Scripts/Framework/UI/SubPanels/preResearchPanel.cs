@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using MarkFramework;
 
 public class preResearchPanel : BasePanel {
+	public GameObject ParticlePanel;
 	protected override void Awake()
 	{
 		//一定不能少 因为需要执行父类的awake来初始化一些信息 比如找控件 加事件监听
@@ -15,6 +16,7 @@ public class preResearchPanel : BasePanel {
 
 	// Use this for initialization
 	void Start () {
+		
 		BtnInit("btnConfirm");
 	}
 	private void BtnInit(string btnName)
@@ -43,6 +45,7 @@ public class preResearchPanel : BasePanel {
 				//进入研究panel
 				UIManager.Instance.HidePanel("preResearchPanel");
 				//TODO:此处填入研究panel
+				EventCenter.Instance.EventTrigger(E_EventType.E_Call_ParticlePanel);
 				//UIManager.Instance.ShowPanel<ParticlePanel>("ParticlePanel");
 				break;
 		}

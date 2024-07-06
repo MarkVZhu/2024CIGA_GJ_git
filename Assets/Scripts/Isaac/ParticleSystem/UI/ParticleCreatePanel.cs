@@ -82,7 +82,7 @@ public class ParticleCreatePanel : MonoBehaviour
         connectionLines = new List<GameObject>();
      
 
-        StartCoroutine(Initialize());
+        //StartCoroutine(Initialize());
     }
     enum MouseState
     {
@@ -398,7 +398,7 @@ public class ParticleCreatePanel : MonoBehaviour
         InitializeBlocks();
     }
 
-    IEnumerator Initialize()
+    public IEnumerator Initialize()
     {
 
         //use boxcollider to determin the size of the map
