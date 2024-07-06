@@ -24,9 +24,12 @@ public class ParticlePanel : MonoBehaviour
     private void Awake()
     {
         EventCenter.Instance.AddEventListener(E_EventType.E_Block_Update, UpdateBlockUI);
-        UpdateBlockButtonUI();
-        OnClickBlockIndex(0);
+        UpdateBlockButtonColors();
+
         UpdatePanelBackgroundUI();
+    }
+    private void Start()
+    {
     }
     private void OnEnable()
     {
@@ -37,7 +40,7 @@ public class ParticlePanel : MonoBehaviour
     {
         curBlock = blocks[index];
         UpdateBlockUI();
-        UpdateBlockButtonUI();
+        UpdateBlockButtonUI(index);
         UpdatePanelBackgroundUI();
 
         particleCreatePanel.LoadBlock(curBlock);
@@ -47,12 +50,29 @@ public class ParticlePanel : MonoBehaviour
         EventCenter.Instance.RemoveEventListener(E_EventType.E_Block_Update, UpdateBlockUI);
 
     }
-    private void UpdateBlockButtonUI()
+    private void UpdateBlockButtonUI(int index)
+    {
+        UpdateBlockButtonColors();
+        for (int i = 0; i < BlockButtons.Length; i++)
+        {
+
+            if (index == i)
+            {
+                BlockButtons[i].transform.parent.GetComponent<Image>().enabled = true;
+            }
+            else
+            {
+                BlockButtons[i].transform.parent.GetComponent<Image>().enabled = false;
+            }
+        }
+
+    }
+    private void UpdateBlockButtonColors()
     {
         for (int i = 0; i < BlockButtons.Length; i++)
         {
 
-           BlockButtons[i].GetComponent<Image>().color = GetColor(blocks[i].hardness, blocks[i].bounce, blocks[i].smooth);
+            BlockButtons[i].GetComponent<Image>().color = GetColor(blocks[i].hardness, blocks[i].bounce, blocks[i].smooth);
 
         }
     }
@@ -62,7 +82,7 @@ public class ParticlePanel : MonoBehaviour
     }
     private void UpdateBlockUI()
     {
-        UpdateBlockButtonUI();
+
         UpdatePanelBackgroundUI();
 
         foreach (Transform item in HardnessStatusContainer)

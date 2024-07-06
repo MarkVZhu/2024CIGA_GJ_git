@@ -71,7 +71,7 @@ public class ParticleCreatePanel : MonoBehaviour
     //Used to store the block status, so that player can recover the block they have built
     private bool[][] connectionResult;
     #endregion
-    private void Start()
+    private void Awake()
     {
         m_pointDict = new Dictionary<Point, Vector3>();
         m_gridStateDict = new Dictionary<Point, GridState>();
@@ -103,14 +103,16 @@ public class ParticleCreatePanel : MonoBehaviour
 
             curState = MouseState.MouseUp;
             displayConnection();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
+
             var res = CalculateConnectionResult();
             SaveBlock();
 
             EventCenter.Instance.EventTrigger(E_EventType.E_Block_Update);
             Debug.Log($"Hardness: {res[0]}, Smoothness: {res[1]}, Bounceness:{res[2]}");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+
         }
         
     }
@@ -186,68 +188,14 @@ public class ParticleCreatePanel : MonoBehaviour
     private void displayConnection()
     {
         clearConnectionLines();
-        /*        for (int i = 0; i < StepWidth; i++)
-                {
-                    for (int j = 1; j < StepWidth; j++)
-                    {
-                        Point p = new Point(j, i);
-                        if (!m_pointNeighbours.ContainsKey(p))
-                        {
-                            //if point has no neighbours, then set down alpha
-                            m_particleNodesDict[p].color = new Color(m_particleNodesDict[p].color.r,
-                                                                      m_particleNodesDict[p].color.g,
-                                                                      m_particleNodesDict[p].color.b,
-                                                                      0.3f);
-                            continue;
-                        }
-                        else if(m_pointNeighbours[p].Contains(new Point(j - 1, i)))
-                        {
-                            m_particleNodesDict[p].color = new Color(m_particleNodesDict[p].color.r,
-                                                  m_particleNodesDict[p].color.g,
-                                                  m_particleNodesDict[p].color.b,
-                                                  1);
-                            Vector3 pos = (GetPositionViaPoint(p) + GetPositionViaPoint(new Point(j - 1, i))) / 2;
-                            var go = Instantiate(m_horizontalLinePrefab, pos, Quaternion.identity);
-                            go.transform.SetParent(transform);
-                            connectionLines.Add(go);
-                        }
-                    }
-                }
-                for (int i = 0; i < StepWidth; i++)
-                {
-                    for (int j = 1; j < StepWidth; j++)
-                    {
-                        Point p = new Point(i, j);
-                        if (!m_pointNeighbours.ContainsKey(p))
-                        {
-                            //if point has no neighbours, then set down alpha
-                            m_particleNodesDict[p].color = new Color(m_particleNodesDict[p].color.r,
-                                                                      m_particleNodesDict[p].color.g,
-                                                                      m_particleNodesDict[p].color.b,
-                                                                      0.3f);
-                            continue;
-                        }
-                        else if (m_pointNeighbours[p].Contains(new Point(i, j-1)))
-                        {
-                            m_particleNodesDict[p].color = new Color(m_particleNodesDict[p].color.r,
-                                                  m_particleNodesDict[p].color.g,
-                                                  m_particleNodesDict[p].color.b,
-                                                  1);
-                            Vector3 pos = (GetPositionViaPoint(p) + GetPositionViaPoint(new Point(i, j-1))) / 2;
-                            var go = Instantiate(m_horizontalLinePrefab, pos, Quaternion.identity);
-                            go.transform.SetParent(transform);
-                            connectionLines.Add(go);
-                        }
-                    }
-                }
-        */
+
 
         for (int i = 0; i < StepWidth; i++)
         {
             for (int j = 0; j < StepWidth; j++)
             {
                 Point p = new Point(i, j);
-                if (!m_pointNeighbours.ContainsKey(p))
+                if (!m_pointNeighbours.ContainsKey(p) || m_pointNeighbours[p].Count<=0)
                 {
                     //if point has no neighbours, then set down alpha
                     m_particleNodesDict[p].color = new Color(m_particleNodesDict[p].color.r,
@@ -287,6 +235,10 @@ public class ParticleCreatePanel : MonoBehaviour
     }
     void clearConnectionLines()
     {
+        if (connectionLines == null)
+        {
+            return;
+        }
         for (int i = 0; i < connectionLines.Count; i++)
         {
             Destroy(connectionLines[i]);
@@ -403,8 +355,12 @@ public class ParticleCreatePanel : MonoBehaviour
                 }
             }
         }
+        if(totalConnection < 12)
+        {
+            return new float[] { 0, 0, 0 };
+        }
         float hardness =  (totalConnection / 40f * 10f);
-        float smoothness = 1f - Mathf.Abs(verticalConnection - horizontalConnection) / 20;
+        float smoothness = Mathf.Abs(verticalConnection - horizontalConnection) / 20;
         float bounceness = 0;
         if(1<Mathf.Abs(verticalConnection-horizontalConnection)&& Mathf.Abs(verticalConnection - horizontalConnection) < 19)
         {
