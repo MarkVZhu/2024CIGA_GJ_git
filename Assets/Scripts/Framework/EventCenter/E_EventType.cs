@@ -36,6 +36,7 @@ namespace MarkFramework
 		/// When player start playing after building
 		/// </summary>
 		E_Start_Level,
+		E_Block_Update,
 		
 		/// <summary>
 		/// Build customized block
