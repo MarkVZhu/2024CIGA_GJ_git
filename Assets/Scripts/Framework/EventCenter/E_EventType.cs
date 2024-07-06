@@ -32,6 +32,7 @@ namespace MarkFramework
 		/// </summary>
 		E_Raise_Property,
 		E_Start_Level,
+		E_Block_Update,
 		
 	}
 }

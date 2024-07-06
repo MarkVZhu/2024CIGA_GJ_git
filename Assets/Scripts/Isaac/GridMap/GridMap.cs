@@ -12,6 +12,8 @@ public enum GridState
     Player = 2,
     Goal = 3,
     Star = 4,
+    DeathArea = 5,
+
 
 
 }
@@ -31,6 +33,11 @@ public class GridMap : SingletonMono<GridMap>
     private GameObject m_blockPrefab;
     [SerializeField]
     private GameObject m_snakePrefab;
+
+    public MapData CurMap
+    {
+        get => m_maps[0];
+    }
 
     public bool MapInitializeCompleted;
 
@@ -70,10 +77,6 @@ public class GridMap : SingletonMono<GridMap>
     public Action GameOver;//Invoked when Game is over.
     private void Awake()
     {
-        foreach (Transform item in transform)
-        {
-            DestroyImmediate(item.gameObject);
-        }
         m_pointDict = new Dictionary<Point, Vector3>();
         m_gridStateDict = new Dictionary<Point, GridState>();
         m_blocks = new List<GameObject>();
@@ -84,7 +87,29 @@ public class GridMap : SingletonMono<GridMap>
 #if UNITY_EDITOR
     private void OnValidate()
     {
+       /* List<Transform> list = new List<Transform>();
+        foreach (Transform item in transform)
+        {
+            list.Add(item);
+        }
+        if (transform.childCount > 0)
+        {
+            UnityEditor.EditorApplication.delayCall += () =>
+            {
+                foreach (Transform item in list)
+                {
+                    DestroyImmediate(item.gameObject);
+                }
+            };
 
+        }
+
+        m_pointDict = new Dictionary<Point, Vector3>();
+        m_gridStateDict = new Dictionary<Point, GridState>();
+        m_blocks = new List<GameObject>();
+
+        LoadMap();
+        InitializeImmediately();*/
 
     }
 
@@ -97,8 +122,6 @@ public class GridMap : SingletonMono<GridMap>
     public void StartNewPuzzle()
     {
         LoadMap();
-        InitializeBlocks();
-        
         InitializeBlocks();
         InitializeBlockSprites();
     }
@@ -118,16 +141,7 @@ public class GridMap : SingletonMono<GridMap>
     }
     private MapData RandomChoose()
     {
-        List<MapData> datas = new List<MapData>();
-        foreach (var item in m_maps)
-        {
-            if(!item.Equals(m_mapData))
-            {
-                datas.Add(item);
-            }
-        }
-        int map = UnityEngine.Random.Range((int)0, (int)datas.Count);
-        return datas[map];
+        return m_maps[0];
     }
 /*    public void Initialize()
     {
@@ -202,7 +216,7 @@ public class GridMap : SingletonMono<GridMap>
         {
             for (int j = 0; j < m_heightSteps; j++)
             {
-                m_gridStateDict[new Point(i, j)] = m_mapData.BlocksX[i].BlocksY[j];
+                m_gridStateDict[new Point(i, j)] = (GridState) m_mapData.BlocksX[i].BlocksY[j];
             }
         }
     }
@@ -214,12 +228,13 @@ public class GridMap : SingletonMono<GridMap>
             for (int j = 0; j < m_heightSteps; j++)
             {
                 Point point = new Point(i, j);
-                if (m_gridStateDict[point] == GridState.None)
+
+                m_gridSpriteData.GetPrefabViaGridState((int)m_gridStateDict[point], out GameObject prefab);
+                GameObject go;
+                if(m_gridStateDict[point] == GridState.None)
                 {
                     continue;
                 }
-                m_gridSpriteData.GetPrefabViaGridState(m_gridStateDict[point], out GameObject prefab);
-                GameObject go;
                 if (prefab ==null)
                 {
                     go = Instantiate(m_blockPrefab, m_pointDict[point] + new Vector3(0, 0, 1), Quaternion.identity, transform);
@@ -230,7 +245,7 @@ public class GridMap : SingletonMono<GridMap>
                     go = Instantiate(prefab, m_pointDict[point] + new Vector3(0, 0, 1), Quaternion.identity, transform);
 
                 }
-                m_gridSpriteData.GetSpriteViaGridState(m_gridStateDict[point], out Sprite sprite);
+                m_gridSpriteData.GetSpriteViaGridState((int)m_gridStateDict[point], out Sprite sprite);
                 go.GetComponent<SpriteRenderer>().sprite = sprite;
                 m_blocks.Add(go);
             }

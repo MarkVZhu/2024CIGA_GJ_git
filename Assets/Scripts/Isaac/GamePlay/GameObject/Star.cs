@@ -1,18 +1,25 @@
+using MarkFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameModel model;
+    private bool triggered;
+    private void Start()
     {
-        
+        triggered = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (!triggered)
+        {
+            GameModel.Instance.StarCount++;
+            triggered = true;
+        }
+
+        Destroy(gameObject);
     }
 }

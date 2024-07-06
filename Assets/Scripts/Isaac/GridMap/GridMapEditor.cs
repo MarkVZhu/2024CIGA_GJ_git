@@ -8,6 +8,10 @@ public class GridMapEditor : MonoBehaviour
     public GridMap CurMap;
     public GridState SelectedState;
 
+    private void Awake()
+    {
+        CurMapData = CurMap.CurMap;
+    }
     public void RefreshMap()
     {
         CurMap.InitializeImmediately();
@@ -20,8 +24,11 @@ public class GridMapEditor : MonoBehaviour
     public void SetTile(Vector3 pos)
     {
         Point p =  CurMap.GetPointViaPosition(pos);
-        CurMapData.BlocksX[p.X].BlocksY[p.Y] = SelectedState;
+        CurMapData.BlocksX[p.X].BlocksY[p.Y] = (int)SelectedState;
         CurMap.RefreshMap();
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(CurMapData);
+#endif
     }
 
     private void Update()

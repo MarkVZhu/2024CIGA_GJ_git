@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b6b75b0ed5abb4092e9375a66577f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurMapData: {fileID: 11400000, guid: 975ac0a07506a264abae3ca166e0b428, type: 2}
+  CurMapData: {fileID: 0}
   CurMap: {fileID: 954561731}
   SelectedState: 0
   scrollSpeed: 10
