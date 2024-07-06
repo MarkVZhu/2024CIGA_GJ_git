@@ -18,9 +18,11 @@ public class CreateBlock : MonoBehaviour
 
 	void BuildBlock(Vector3 cellPosition)
 	{
-		if(limitNum > 0)
+		BlockControl bc = customizedBlockPref.GetComponent<BlockControl>();
+		//if(!bc.IsBlockValid(e_BlockNum)) Debug.Log("Invalid block");
+		if(bc.IsBlockValid(e_BlockNum) && limitNum > 0)
 		{
-			customizedBlockPref.GetComponent<BlockControl>().blockNum = e_BlockNum;
+			bc.blockNum = e_BlockNum;
 			Instantiate(customizedBlockPref, cellPosition, Quaternion.identity);
 			limitNum--;
 			Debug.Log("limitNum " + limitNum);

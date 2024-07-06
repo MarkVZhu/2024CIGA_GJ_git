@@ -23,6 +23,17 @@ public class preResearchPanel : BasePanel {
 		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
 
 	}
+	
+	void fun()
+	{
+	}
+	
+	public override void ShowMe()
+	{
+		base.ShowMe();
+		//显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
+		//只要重写了它  就会执行里面的逻辑
+	}
 
 	protected override void OnClick(string btnName)
 	{
@@ -32,7 +43,7 @@ public class preResearchPanel : BasePanel {
 				//进入研究panel
 				UIManager.Instance.HidePanel("preResearchPanel");
 				//TODO:此处填入研究panel
-				//UIManager.Instance.ShowPanel<>("");
+				UIManager.Instance.ShowPanel<ParticlePanel>("ParticlePanel");
 				break;
 		}
 	}

@@ -33,7 +33,7 @@ public class TilemapClickHandler : MonoBehaviour
 			if (!Physics2D.OverlapPoint(worldPoint, blockLayer))
 			{
 				Debug.Log("Clicked Cell Center: " + cellCenterPosition);
-				EventCenter.Instance.EventTrigger<Vector3>(E_EventType.E_Build_Block, cellCenterPosition);
+				if(InGameManager.Instance.currentState == InGameManager.GameState.Build) EventCenter.Instance.EventTrigger<Vector3>(E_EventType.E_Build_Block, cellCenterPosition);
 			}
 			else
 			{
@@ -44,14 +44,17 @@ public class TilemapClickHandler : MonoBehaviour
 		if(Input.GetMouseButtonDown(1))
 		{
 			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        	worldPoint.z = 0;
+			worldPoint.z = 0;
 
-        	Collider2D hitCollider = Physics2D.OverlapPoint(worldPoint, blockLayer);
-        	if (hitCollider != null && hitCollider.gameObject.CompareTag("BuildBlock"))
+			Collider2D hitCollider = Physics2D.OverlapPoint(worldPoint, blockLayer);
+			if (hitCollider != null && hitCollider.gameObject.CompareTag("BuildBlock"))
 			{
-				Debug.Log("Right-clicked on buildBlock, deleting...");
-				Destroy(hitCollider.gameObject);
-				EventCenter.Instance.EventTrigger(E_EventType.E_Delete_Block);
+				if(InGameManager.Instance.currentState == InGameManager.GameState.Build)
+				{
+					Debug.Log("Right-clicked on buildBlock, deleting...");
+					Destroy(hitCollider.gameObject);
+					EventCenter.Instance.EventTrigger(E_EventType.E_Delete_Block);
+				}
 			}
 		}
 	}

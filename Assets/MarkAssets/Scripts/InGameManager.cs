@@ -22,8 +22,7 @@ public class InGameManager : SingletonMono<InGameManager>
 		EventCenter.Instance.AddEventListener(E_EventType.E_Enter_Next_State, ConfirmState);
 		
 		// 初始化状态为Research
-		//currentState = GameState.Research; // TODO:改回Research
-		currentState = GameState.Build; 
+		currentState = GameState.Research;
 		EnterState(currentState);
 	}
 
@@ -56,6 +55,7 @@ public class InGameManager : SingletonMono<InGameManager>
 		switch (state)
 		{
 			case GameState.Research:
+				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				Debug.Log("Entered Research State");
 				break;
 			case GameState.Build:

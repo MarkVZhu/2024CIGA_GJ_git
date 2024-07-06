@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Isho/Lev1.unity
     guid: 4d857942a0a96b941a1bf2496f32565b
   - enabled: 1
@@ -17,5 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Isho/Lev3.unity
     guid: 42f66acbda5e8ab408783b32870569e9
+  - enabled: 1
+    path: Assets/Scenes/MainMenueScene.unity
+    guid: 9adb6046389f6db46828e98f3bfadb41
+  - enabled: 1
+    path: Assets/MarkAssets/Scenes/LevelSample_1.unity
+    guid: 5f66bb6279cad774688df8675c322d77
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c9b291ae314ced840814940ab8129e8a, type: 2}
