@@ -610,6 +610,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4019030040648686793, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019030040648686793, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
       propertyPath: carRotationSpeed
       value: 100
       objectReference: {fileID: 0}
@@ -684,7 +688,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3204155593597336518, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2039833209}
   m_SourcePrefab: {fileID: 100100000, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
 --- !u!1 &505510892
 GameObject:
@@ -891,7 +898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customizedBlockPref: {fileID: 5427063888960138945, guid: 02d40e183d8f3234aaa7a729f85335e5, type: 3}
-  e_BlockNum: 1
+  e_BlockNum: 0
   limitNum: 10
 --- !u!4 &1280576326
 Transform:
@@ -1168,6 +1175,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2009281945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009281947}
+  - component: {fileID: 2009281946}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2009281946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009281945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e780ef1e110848c4d8be3873134cfbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 1
+--- !u!4 &2009281947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009281945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05759406, y: 3.2506306, z: -0.06605699}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2039833201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3204155593597336518, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
+  m_PrefabInstance: {fileID: 410965393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!235 &2039833205 stripped
+WheelJoint2D:
+  m_CorrespondingSourceObject: {fileID: 6984378546489764604, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
+  m_PrefabInstance: {fileID: 410965393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2039833209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039833201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf89b4a342941064b94c091fc780dfa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontwheel: {fileID: 2039833205}
+  backwheel: {fileID: 2039833205}
+  speedF: 1000
+  torqueF: 2
+  torqueB: 2
+  TractionFront: 1
+  TractionBack: 1
+  carRotationSpeed: 100
 --- !u!1 &2117099388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,3 +1587,4 @@ SceneRoots:
   - {fileID: 505510894}
   - {fileID: 1280576326}
   - {fileID: 2117099391}
+  - {fileID: 2009281947}
