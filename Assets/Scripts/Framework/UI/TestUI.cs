@@ -8,10 +8,12 @@ public class TestUI : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
-		//UIManager.Instance.ShowPanel<PausePanel>("PausePanel");
-		//Invoke("HidePanel",1f);
-	}
+        //UIManager.Instance.ShowPanel<MapPanel>("MapPanel");
+        //UIManager.Instance.ShowPanel<PausePanel>("PausePanel");
+        //Invoke("HidePanel",1f);
+        //UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
+        UIManager.Instance.ShowPanel<LosePanel>("LosePanel");
+    }
 
 	void HidePanel()
 	{

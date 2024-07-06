@@ -24,7 +24,21 @@ namespace MarkFramework
 			SceneManager.LoadScene(name);
 			fun();
 		}
-		
+		public void LoadScene(int name, UnityAction fun)
+		{
+			SceneManager.LoadScene(name);
+			fun();
+		}
+		public int GetSceneInd()
+        {
+			int id=SceneManager.GetActiveScene().buildIndex;
+			return id;
+		}
+		public string GetSceneName()
+		{
+			string name = SceneManager.GetActiveScene().name;
+			return name;
+		}
 		public void LoadSceneAsyn(string name, UnityAction fun)
 		{
 			MonoManager.Instance.StartCoroutine(RealLoadSceneAsyn(name, fun));

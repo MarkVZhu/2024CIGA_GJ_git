@@ -1,29 +1,30 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MarkFramework;
 
-public class ResultPanel : BasePanel {
-	//å…³å¡èƒœåˆ©åè°ƒå‡ºè¯¥panel
+public class LosePanel : BasePanel
+{
+	//¹Ø¿¨½áÊøºóµ÷³ö¸Ãpanel
 	protected override void Awake()
 	{
-		//ä¸€å®šä¸èƒ½å°‘ å› ä¸ºéœ€è¦æ‰§è¡Œçˆ¶ç±»çš„awakeæ¥åˆå§‹åŒ–ä¸€äº›ä¿¡æ¯ æ¯”å¦‚æ‰¾æ§ä»¶ åŠ äº‹ä»¶ç›‘å¬
+		//Ò»¶¨²»ÄÜÉÙ ÒòÎªĞèÒªÖ´ĞĞ¸¸ÀàµÄawakeÀ´³õÊ¼»¯Ò»Ğ©ĞÅÏ¢ ±ÈÈçÕÒ¿Ø¼ş ¼ÓÊÂ¼ş¼àÌı
 		base.Awake();
-		//åœ¨ä¸‹é¢å¤„ç†è‡ªå·±çš„ä¸€äº›åˆå§‹åŒ–é€»è¾‘
+		//ÔÚÏÂÃæ´¦Àí×Ô¼ºµÄÒ»Ğ©³õÊ¼»¯Âß¼­
 	}
 
 	// Use this for initialization
-	void Start () {
-		BtnInit("btnNext");
+	void Start()
+	{
 		BtnInit("btnResume");
 		BtnInit("btnMain");
 		// UIManager.AddCustomEventListener(GetControl<Button>("btnStart"), EventTriggerType.PointerEnter, (data)=>{
-		//     Debug.Log("è¿›å…¥");
+		//     Debug.Log("½øÈë");
 		// });
 		// UIManager.AddCustomEventListener(GetControl<Button>("btnStart"), EventTriggerType.PointerExit, (data) => {
-		//     Debug.Log("ç¦»å¼€");
+		//     Debug.Log("Àë¿ª");
 		// });
 	}
 	private void BtnInit(string btnName)
@@ -36,71 +37,63 @@ public class ResultPanel : BasePanel {
 	}
 	private void Drag(BaseEventData data)
 	{
-		//æ‹–æ‹½é€»è¾‘
+		//ÍÏ×§Âß¼­
 	}
 
 	private void PointerDown(BaseEventData data)
 	{
-		//PointerDowné€»è¾‘
+		//PointerDownÂß¼­
 	}
 
 	// Update is called once per frame
-	void Update () {
-		
-	}
-	void fun()
+	void Update()
 	{
-		Debug.Log("åŠ è½½å®Œæˆ");
+
 	}
+
 	public override void ShowMe()
 	{
 		base.ShowMe();
-		//æ˜¾ç¤ºé¢æ¿æ—¶ æƒ³è¦æ‰§è¡Œçš„é€»è¾‘ è¿™ä¸ªå‡½æ•° åœ¨UIç®¡ç†å™¨ä¸­ ä¼šè‡ªåŠ¨å¸®æˆ‘ä»¬è°ƒç”¨
-		//åªè¦é‡å†™äº†å®ƒ  å°±ä¼šæ‰§è¡Œé‡Œé¢çš„é€»è¾‘
+		//ÏÔÊ¾Ãæ°åÊ± ÏëÒªÖ´ĞĞµÄÂß¼­ Õâ¸öº¯Êı ÔÚUI¹ÜÀíÆ÷ÖĞ »á×Ô¶¯°ïÎÒÃÇµ÷ÓÃ
+		//Ö»ÒªÖØĞ´ÁËËü  ¾Í»áÖ´ĞĞÀïÃæµÄÂß¼­
 	}
-
+	void fun() { }
 	protected override void OnClick(string btnName)
 	{
-		//è·å–å½“å‰åœºæ™¯ç¼–å·ï¼Œæ–¹ä¾¿åˆ‡æ¢ä¸‹ä¸€ä¸ªåœºæ™¯
 		int id = ScenesMgr.Instance.GetSceneInd();
 		Debug.Log(id);
 		switch (btnName)
 		{
 			case "btnResume":
-				Debug.Log("btnResumeè¢«ç‚¹å‡»");
-                ScenesMgr.Instance.LoadScene(id,fun);
-				UIManager.Instance.HidePanel("ResultPanel");
+				Debug.Log("btnResume±»µã»÷");
+				ScenesMgr.Instance.LoadScene(id, fun);
+				UIManager.Instance.HidePanel("LosePanel");
 				break;
 			case "btnMain":
-				Debug.Log("btnMainè¢«ç‚¹å‡»");
-				UIManager.Instance.HidePanel("ResultPanel");
+				Debug.Log("btnMain±»µã»÷");
+				UIManager.Instance.HidePanel("LosePanel");
 				UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
-				break;
-			case "btnNext":
-				Debug.Log("ä¸‹ä¸€å…³");
-				id++;
-				ScenesMgr.Instance.LoadScene(id, fun);
-				UIManager.Instance.HidePanel("ResultPanel");
 				break;
 		}
 	}
+
 	protected override void OnValueChanged(string toggleName, bool value)
 	{
-		//åœ¨è¿™æ¥æ ¹æ®åå­—åˆ¤æ–­ åˆ°åº•æ˜¯é‚£ä¸€ä¸ªå•é€‰æ¡†æˆ–è€…å¤šé€‰æ¡†çŠ¶æ€å˜åŒ–äº† å½“å‰çŠ¶æ€å°±æ˜¯ä¼ å…¥çš„value
+		//ÔÚÕâÀ´¸ù¾İÃû×ÖÅĞ¶Ï µ½µ×ÊÇÄÇÒ»¸öµ¥Ñ¡¿ò»òÕß¶àÑ¡¿ò×´Ì¬±ä»¯ÁË µ±Ç°×´Ì¬¾ÍÊÇ´«ÈëµÄvalue
 	}
 
 
 	public void InitInfo()
 	{
-		Debug.Log("åˆå§‹åŒ–æ•°æ®");
+		Debug.Log("³õÊ¼»¯Êı¾İ");
 	}
 
-	//ç‚¹å‡»å¼€å§‹æŒ‰é’®çš„å¤„ç†ï¼ˆå¯ä»¥æ”¾åˆ°switché‡Œï¼‰
+	//µã»÷¿ªÊ¼°´Å¥µÄ´¦Àí£¨¿ÉÒÔ·Åµ½switchÀï£©
 	public void ClickStart()
 	{
 	}
 
-	//ç‚¹å‡»å¼€å§‹æŒ‰é’®çš„å¤„ç†
+	//µã»÷¿ªÊ¼°´Å¥µÄ´¦Àí
 	public void ClickQuit()
 	{
 		Debug.Log("Quit Game");

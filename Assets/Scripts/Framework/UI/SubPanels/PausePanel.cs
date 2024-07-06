@@ -16,6 +16,7 @@ public class PausePanel : BasePanel {
 
 	// Use this for initialization
 	void Start () {
+		InitInfo();
 		//开始逻辑
 	}
 
@@ -34,14 +35,14 @@ public class PausePanel : BasePanel {
 		
 	}
 
-	public override void ShowMe()
-	{
-		base.ShowMe();
-		//显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
-		//只要重写了它  就会执行里面的逻辑
-	}
+    public override void ShowMe()
+    {
+        base.ShowMe();
+        //显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
+        //只要重写了它  就会执行里面的逻辑
+    }
 
-	protected override void OnClick(string btnName)
+    protected override void OnClick(string btnName)
 	{
 		switch(btnName)
 		{
@@ -68,6 +69,15 @@ public class PausePanel : BasePanel {
 
 	public void InitInfo()
 	{
+		//初始化按钮的图片
+		//Image bg = GetControl<Image>("PausePanel");
+		//bg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_27");
+		Image btnCont = GetControl<Image>("btnCont");
+		btnCont.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
+		Image btnResume = GetControl<Image>("btnResume");
+		btnResume.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
+		Image btnName = GetControl<Image>("btnMain");
+		btnName.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
 		Debug.Log("初始化数据");
 	}
 

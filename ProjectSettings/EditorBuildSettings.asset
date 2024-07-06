@@ -8,5 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Isho/Lev1.unity
+    guid: 4d857942a0a96b941a1bf2496f32565b
+  - enabled: 1
+    path: Assets/Scenes/Isho/Lev2.unity
+    guid: b0e96d52a3d4a2f4f9a02a5b14f267b4
+  - enabled: 1
+    path: Assets/Scenes/Isho/Lev3.unity
+    guid: 42f66acbda5e8ab408783b32870569e9
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c9b291ae314ced840814940ab8129e8a, type: 2}

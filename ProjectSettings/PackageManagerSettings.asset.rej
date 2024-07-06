@@ -1,0 +1,7 @@
+diff a/ProjectSettings/PackageManagerSettings.asset b/ProjectSettings/PackageManagerSettings.asset	(rejected hunks)
+@@ -35,4 +35,8 @@
+
+    m_UserModificationsInstanceId: -830
+    m_OriginalInstanceId: -832
+
+    m_LoadAssets: 0
