@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,15 @@ public class CameraMovement : MonoBehaviour
 {
     public float speed = 10f; // The speed of the camera movement
     public float screenEdgeThreshold = 0.25f; // The threshold for the center area
+    public CinemachineVirtualCamera virtualCamera;
+    public Transform Target;
 
     private Vector3 initialPosition;
 
     private CameraStates cameraState;
     void Start()
     {
+        SetToMoveWithMouseMode();
         cam = Camera.main;
         initialPosition = transform.position; // Save the initial position of the camera
     }
@@ -38,14 +42,17 @@ public class CameraMovement : MonoBehaviour
     }
     private void LateUpdate()
     {
+        
     }
     public void SetToTraceMode()
     {
         cameraState = CameraStates.Trace;
+        virtualCamera.Follow = Target.GetChild(0);
     }
     public void SetToMoveWithMouseMode()
     {
         cameraState = CameraStates.MoveWithMouse;
+        virtualCamera.Follow = null;
     }
     void moveWithMouse()
     {
@@ -89,7 +96,7 @@ public class CameraMovement : MonoBehaviour
         float moveSpeedY = Mathf.Clamp01(Mathf.Abs(normalizedDeltaY) - screenEdgeThreshold) * speed;
 
         // Apply the movement to the camera
-        transform.position += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
+        virtualCamera.transform.position += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
     }
 
     public Transform target; // The target to follow
@@ -98,7 +105,7 @@ public class CameraMovement : MonoBehaviour
 
     private Camera cam;
 
-   
+  
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();

@@ -305,7 +305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1077776354488696737}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8049321564343126086}
+        m_TargetAssemblyTypeName: ParticlePanel, Assembly-CSharp
+        m_MethodName: OnClickConfirm
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &694414059999113073
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +554,7 @@ GameObject:
   - component: {fileID: 6502502865899113676}
   - component: {fileID: 5394078823304157496}
   - component: {fileID: 8049321564343126086}
+  - component: {fileID: 1633773387152244730}
   m_Layer: 5
   m_Name: ParticlePanel
   m_TagString: Untagged
@@ -609,6 +622,18 @@ MonoBehaviour:
   ChosenSprite: {fileID: 21300092, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   PanelBackground: {fileID: 3374054270683119052}
   particleCreatePanel: {fileID: 7995723584672876066}
+--- !u!225 &1633773387152244730
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490638545100951289}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2069742492339429415
 GameObject:
   m_ObjectHideFlags: 0
