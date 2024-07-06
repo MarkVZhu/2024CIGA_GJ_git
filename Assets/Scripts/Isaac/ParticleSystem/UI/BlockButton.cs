@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler
+public class BlockButton : MonoBehaviour
 {
     private Image buttonImage;
     public Color ButtonNormalColor;
@@ -14,18 +14,5 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHandle
     {
         buttonImage = GetComponent<Image>();
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        buttonImage.color = ButtonEnterColor;
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        buttonImage.color = ButtonEnterColor;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        buttonImage.color = ButtonNormalColor;
-    }
 }

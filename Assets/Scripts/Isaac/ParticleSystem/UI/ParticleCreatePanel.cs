@@ -64,9 +64,10 @@ public class ParticleCreatePanel : MonoBehaviour
     private MouseState curState;
     private Point curPoint = new Point(-1, -1);
     private List<GameObject> connectionLines;
+    private Block curBlock;
 
     //Used to store the block status, so that player can recover the block they have built
-    private List<List<bool>> connectionResult;
+    private bool[][] connectionResult;
     #endregion
     private void Awake()
     {
@@ -102,9 +103,77 @@ public class ParticleCreatePanel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             var res = CalculateConnectionResult();
+            SaveBlock();
+
+            EventCenter.Instance.EventTrigger(E_EventType.E_Block_Update);
             Debug.Log($"Hardness: {res[0]}, Smoothness: {res[1]}, Bounceness:{res[2]}");
         }
         
+    }
+    /// <summary>
+    /// Load a block from ScriptableObject, so that player can edit it and save it
+    /// </summary>
+    /// <param name="record"></param>
+    public void LoadBlock(Block targetBlock)
+    {
+        //Clear the status of the block
+        m_pointNeighbours.Clear();
+        displayConnection();
+
+        curBlock = targetBlock;
+        if (curBlock.lastEditRecord == null || curBlock.lastEditRecord.Length<2)
+        {
+
+            return;
+        }
+
+        int recordIndex = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 1; j < 5; j++)
+            {
+                Point cur = new Point(j, i);
+                DisconnectPoint(new Point(j, i), new Point(j - 1, i));//first diconnect points, so that the current editted block won't affect the block user chosen
+                if (recordIndex < curBlock.lastEditRecord[0].Length && curBlock.lastEditRecord[0][recordIndex])
+                {
+                    ConnectPoint(new Point(j, i), new Point(j - 1, i));
+                }
+                recordIndex++;
+            }
+        }
+        recordIndex = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 1; j < 5; j++)
+            {
+                Point cur = new Point(i, j);
+                DisconnectPoint(new Point(i, j), new Point(i, j - 1));//
+                if (recordIndex<curBlock.lastEditRecord[1].Length&& curBlock.lastEditRecord[1][recordIndex])
+                {
+                    ConnectPoint(new Point(i, j), new Point(i, j - 1));  
+                }
+                recordIndex++;
+            }
+        }
+        displayConnection();
+    }
+    public void SaveBlock()
+    {
+        if (connectionResult != null&&curBlock!=null)
+        {
+            curBlock.lastEditRecord = connectionResult;
+            curBlock.lastEditRecord = new bool[2][];
+            curBlock.lastEditRecord[0] = new bool[20];
+            curBlock.lastEditRecord[1] = new bool[20];
+            for (int i = 0; i < connectionResult[0].Length; i++)
+            {
+                curBlock.lastEditRecord[0][i] = connectionResult[0][i];
+            }
+            for (int i = 0; i < connectionResult[1].Length; i++)
+            {
+                curBlock.lastEditRecord[1][i] = connectionResult[1][i];
+            }
+        }
     }
     private void displayConnection()
     {
@@ -123,7 +192,7 @@ public class ParticleCreatePanel : MonoBehaviour
 
                     Vector3 pos = (GetPositionViaPoint(p)+ GetPositionViaPoint(item)) / 2;
                     var go = Instantiate(m_linePrefab, pos, Quaternion.identity);
-                    go.transform.parent = transform;
+                    go.transform.SetParent(transform);
                     connectionLines.Add(go);
                 }
             }
@@ -182,7 +251,15 @@ public class ParticleCreatePanel : MonoBehaviour
     }
     public void DisconnectPoint(Point A, Point B)
     {
+        if (!m_pointNeighbours.ContainsKey(A) || m_pointNeighbours[A] == null)
+        {
+            return;
+        }
         m_pointNeighbours[A].Remove(B);
+        if (!m_pointNeighbours.ContainsKey(B) || m_pointNeighbours[B] == null)
+        {
+            return;
+        }
         m_pointNeighbours[B].Remove(A);
     }
 
@@ -192,9 +269,10 @@ public class ParticleCreatePanel : MonoBehaviour
         float horizontalConnection = 0;
         float verticalConnection = 0;
 
-        connectionResult = new List<List<bool>>();
-        connectionResult.Add(new List<bool>());
-        connectionResult.Add(new List<bool>());
+        connectionResult = new bool[2][];
+        connectionResult[0] = new bool[20];
+        connectionResult[1] = new bool[20];
+        int connectionIndex=0;
 
         for (int i = 0; i < 5; i++)
         {
@@ -203,17 +281,22 @@ public class ParticleCreatePanel : MonoBehaviour
                 Point cur = new Point(j, i);
                 if(m_pointNeighbours.ContainsKey(cur) && m_pointNeighbours[cur].Contains(new Point(j - 1, i)))
                 {
-                    connectionResult[0].Add(true);
+                    connectionResult[0][connectionIndex] = true;
+                    connectionIndex++;
                     //Used to calculate hardness, bounceness, etc.
                     totalConnection++;
                     horizontalConnection++;
+
                 }
                 else
                 {
-                    connectionResult[0].Add(false);
+                    
+                    connectionResult[0][connectionIndex] = false;
+                    connectionIndex++;
                 }
             }
         }
+        connectionIndex = 0;
         for (int i = 0; i < 5; i++)
         {
             for (int j = 1; j < 5; j++)
@@ -221,13 +304,16 @@ public class ParticleCreatePanel : MonoBehaviour
                 Point cur = new Point(i, j);
                 if(m_pointNeighbours.ContainsKey(cur) && m_pointNeighbours[cur].Contains(new Point(i, j - 1)))
                 {
-                    connectionResult[0].Add(true);
+                    connectionResult[1][connectionIndex] =true;
+                    connectionIndex++;
+
                     totalConnection++;
                     verticalConnection++;
                 }
                 else
                 {
-                    connectionResult[0].Add(false);
+                    connectionResult[1][connectionIndex] =false;
+                    connectionIndex++;
                 }
             }
         }
@@ -245,6 +331,12 @@ public class ParticleCreatePanel : MonoBehaviour
         }
         float[] result = new float[] {hardness, smoothness, bounceness };
 
+        if (curBlock != null)
+        {
+            curBlock.hardness = (int)hardness;
+            curBlock.smooth = smoothness;
+            curBlock.bounce = bounceness;
+        }
         return result;
        
     }
