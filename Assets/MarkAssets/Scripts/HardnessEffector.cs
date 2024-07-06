@@ -6,24 +6,44 @@ using UnityEngine;
 public class HardnessEffector : MonoBehaviour
 {
 	public int hardness;
+	float hardnessFloat;
+	bool canCountDown; //TODO:更新canCountDown
+	
 	// Start is called before the first frame update
 	void Start()
 	{
-		EventCenter.Instance.AddEventListener(E_EventType.E_Start_Level,DestroyCountDown);
-		EventCenter.Instance.EventTrigger(E_EventType.E_Start_Level);//TODO:别的地方触发
+		EventCenter.Instance.AddEventListener(E_EventType.E_Start_Level,EnableCountDown);
+		//EventCenter.Instance.EventTrigger(E_EventType.E_Start_Level);//TODO:别的地方触发
+		hardnessFloat = hardness;
+		canCountDown = false;
 	}
 
-	// Update is called once per frame
-	void DestroyCountDown()
+	void Update()
 	{
-		if (hardness < 8)
+		if(Input.GetKeyDown(KeyCode.K))
 		{
-			Invoke("DestroyCube", hardness);
+			EventCenter.Instance.EventTrigger(E_EventType.E_Start_Level);
+		}
+		
+		if(canCountDown)
+		{
+			if(hardnessFloat > 0)
+			{
+				hardnessFloat -= Time.deltaTime;
+			}
+			else
+			{
+				Destroy(transform.parent.gameObject);
+			}
 		}
 	}
 	
-	void DestroyCube()
+	// Update is called once per frame
+	void EnableCountDown()
 	{
-		Destroy(gameObject.transform.parent.gameObject);
+		if (hardness < 8)
+		{
+			canCountDown = true;
+		}
 	}
 }
