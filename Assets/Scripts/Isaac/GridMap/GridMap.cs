@@ -10,8 +10,12 @@ public enum GridState
     None = 0,
     Obstacle = 1,
     Player = 2,
+    Goal = 3,
+    Star = 4,
+
 
 }
+
 public class GridMap : SingletonMono<GridMap>
 {
     private Dictionary<Point, Vector3> m_pointDict;
@@ -210,6 +214,10 @@ public class GridMap : SingletonMono<GridMap>
             for (int j = 0; j < m_heightSteps; j++)
             {
                 Point point = new Point(i, j);
+                if (m_gridStateDict[point] == GridState.None)
+                {
+                    continue;
+                }
                 m_gridSpriteData.GetPrefabViaGridState(m_gridStateDict[point], out GameObject prefab);
                 GameObject go;
                 if (prefab ==null)
