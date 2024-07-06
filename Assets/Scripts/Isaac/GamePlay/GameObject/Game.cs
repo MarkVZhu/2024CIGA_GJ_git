@@ -1,18 +1,30 @@
+using MarkFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class Game : SingletonMono<Game>
 {
-    // Start is called before the first frame update
-    void Start()
+    private Dictionary<Type, ViewModel> m_modelDict;
+    private GameModel m_gameModel;
+    private void Start()
     {
-        
-    }
+        m_gameModel = GetComponent<GameModel>();
 
-    // Update is called once per frame
-    void Update()
+    }
+    public ViewModel TryGetModel<T>(Type type) where T:ViewModel
     {
-        
+        if(!m_modelDict.TryGetValue(type, out ViewModel model))
+        {
+            model = GetComponent<T>();
+            m_modelDict.Add(type, model);
+        }
+        if(model == null)
+        {
+            Debug.LogError($"Game doesn't has this model:{type}");
+        }
+
+        return (T)model;
     }
 }

@@ -18,7 +18,7 @@ public class MapData : ScriptableObject
 [Serializable]
 public class GridWrapper
 {
-    public GridState[] BlocksY;
+    public int[] BlocksY;
 }
 
 
@@ -42,7 +42,7 @@ public class MyComponentEditor : Editor
             for (int i = 0; i < Data.BlocksX.Length; i++)
             {
                 Data.BlocksX[i] = new GridWrapper();
-                Data.BlocksX[i].BlocksY = new GridState[Data.Height];
+                Data.BlocksX[i].BlocksY = new int[Data.Height];
             }
         }
     }
