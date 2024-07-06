@@ -25,7 +25,7 @@ public class MapPanel : BasePanel {
 		//Image im = GetControl<Image>("btnLevel2");
 		//im.sprite = ResMgr.Instance.Load<Sprite>("Image/testLevel");
 		Image btbg = GetControl<Image>("btnMain");
-		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_11");
+		btbg.sprite = ResMgr.Instance.Load<Sprite>("Image/btn");
 		for (int i = 1; i <= btnnum; i++)
             {
 				string btnName = "btnLevel"+i;
@@ -42,7 +42,7 @@ public class MapPanel : BasePanel {
 		Button bt = GetControl<Button>(btnName);
 		bt.interactable = true;
 		Image btbg = GetControl<Image>(btnName);
-		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
+		btbg.sprite = ResMgr.Instance.Load<Sprite>("Image/btn");
 		if (!curld.Levels[i].isUnlocked)//判断是否上锁，初始是上锁状态
 		{
 			//上锁状态
