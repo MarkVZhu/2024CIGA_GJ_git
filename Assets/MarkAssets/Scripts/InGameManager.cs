@@ -16,14 +16,21 @@ public class InGameManager : SingletonMono<InGameManager>
 
 	// 当前游戏状态
 	public GameState currentState;
+	private bool GameSuccess;
 
+	protected override void Awake()
+	{
+		base.Awake();
+		DontDestroyOnLoad(this);
+	}
+	
 	void Start()
 	{
 		EventCenter.Instance.AddEventListener(E_EventType.E_Enter_Next_State, ConfirmState);
+		Debug.LogWarning("添加listener");
 		
 		// 初始化状态为Research
-		//currentState = GameState.Research; // TODO:改回Research
-		currentState = GameState.Build; 
+		currentState = GameState.Research;
 		EnterState(currentState);
 	}
 
@@ -56,18 +63,23 @@ public class InGameManager : SingletonMono<InGameManager>
 		switch (state)
 		{
 			case GameState.Research:
+				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				Debug.Log("Entered Research State");
 				break;
 			case GameState.Build:
+				UIManager.Instance.ShowPanel<BuildPanel>("BuildPanel");
 				Debug.Log("Entered Build State");
 				break;
 			case GameState.Test:
 				Debug.Log("Entered Test State");
 				break;
 			case GameState.Lose:
-				Debug.Log("Entered Lose State");
+				UIManager.Instance.HidePanel("testPanel");
+				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
+				UIManager.Instance.HidePanel("testPanel");
+				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
 				Debug.Log("Entered Success State");
 				break;
 		}
@@ -86,19 +98,26 @@ public class InGameManager : SingletonMono<InGameManager>
 				break;
 			case GameState.Test:
 				// 在这里可以根据游戏逻辑确定进入Lose还是Success状态
-				bool isSuccess = DetermineTestOutcome();
-				currentState = isSuccess ? GameState.Success : GameState.Lose;
+				currentState = GameSuccess ? GameState.Success : GameState.Lose;
 				break;
 		}
 
 		// 进入新的状态
 		EnterState(currentState);
 	}
-
-	// 确定测试结果的方法（这里你可以根据实际情况来实现）
-	bool DetermineTestOutcome()
+	
+	public void SetGameSuccess(bool isSuccess)
 	{
-		// 示例：随机确定测试结果
-		return Random.value > 0.5f;
+		GameSuccess = isSuccess;
+		if(currentState != GameState.Success && currentState != GameState.Lose) ConfirmState();
 	}
+	
+	public void ResetGameState()
+	{
+		currentState = GameState.Research;
+		EnterState(currentState);
+		GameSuccess = false;
+		//UIManager.Instance.panelDic.Clear();
+	}
+		
 }

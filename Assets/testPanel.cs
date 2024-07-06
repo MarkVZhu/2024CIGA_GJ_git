@@ -9,9 +9,9 @@ public class testPanel : BasePanel
 	// Start is called before the first frame update
 	protected override void Awake()
 	{
-		//一定不能少 因为需要执行父类的awake来初始化一些信息 比如找控件 加事件监听
+		//一锟斤拷锟斤拷锟斤拷锟斤拷 锟斤拷为锟斤拷要执锟叫革拷锟斤拷锟絘wake锟斤拷锟斤拷始锟斤拷一些锟斤拷息 锟斤拷锟斤拷锟揭控硷拷 锟斤拷锟铰硷拷锟斤拷锟斤拷
 		base.Awake();
-		//在下面处理自己的一些初始化逻辑
+		//锟斤拷锟斤拷锟芥处锟斤拷锟皆硷拷锟斤拷一些锟斤拷始锟斤拷锟竭硷拷
 	}
 
 	// Use this for initialization
@@ -39,7 +39,7 @@ public class testPanel : BasePanel
 				break;
 			case "btnReset":
 				ScenesMgr.Instance.LoadScene(id, fun);
-				UIManager.Instance.HidePanel("PausePanel");
+				UIManager.Instance.HidePanel("testPanel");
 				break;
 		}
 	}

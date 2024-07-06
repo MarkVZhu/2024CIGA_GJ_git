@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using MarkFramework;
 using UnityEngine;
 
@@ -93,5 +94,31 @@ public class BlockControl : MonoBehaviour
 	private float Map(float value, float from1, float to1, float from2, float to2)
 	{
 		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+	}
+	
+	public bool IsBlockValid(E_BlockNum e_BlockNum)
+	{
+		switch (e_BlockNum)
+		{
+			case E_BlockNum.E_Block_1:
+			Block b1 = ResMgr.Instance.Load<Block>("SO/Block1");
+			return CheckValid(b1);
+			case E_BlockNum.E_Block_2:
+				Block b2 = ResMgr.Instance.Load<Block>("SO/Block2");
+				return CheckValid(b2);
+			case E_BlockNum.E_Block_3:
+				Block b3 = ResMgr.Instance.Load<Block>("SO/Block3");
+				return CheckValid(b3);
+			case E_BlockNum.E_Block_4:
+				Block b4 = ResMgr.Instance.Load<Block>("SO/Block4");
+				return CheckValid(b4);
+			default:
+				return false;
+		}
+	}
+	
+	bool CheckValid(Block block)
+	{
+		return (block.hardness + block.smooth + block.smooth) > 0.1f;
 	}
 }

@@ -8,9 +8,9 @@ public class BuildPanel : BasePanel
 {
 	protected override void Awake()
 	{
-		//Ò»¶¨²»ÄÜÉÙ ÒòÎªÐèÒªÖ´ÐÐ¸¸ÀàµÄawakeÀ´³õÊ¼»¯Ò»Ð©ÐÅÏ¢ ±ÈÈçÕÒ¿Ø¼þ ¼ÓÊÂ¼þ¼àÌý
+		//Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îªï¿½ï¿½ÒªÖ´ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½awakeï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ò»Ð©ï¿½ï¿½Ï¢ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¿Ø¼ï¿½ ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
 		base.Awake();
-		//ÔÚÏÂÃæ´¦Àí×Ô¼ºµÄÒ»Ð©³õÊ¼»¯Âß¼­
+		//ï¿½ï¿½ï¿½ï¿½ï¿½æ´¦ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ß¼ï¿½
 	}
 
 	// Use this for initialization
@@ -29,12 +29,12 @@ public class BuildPanel : BasePanel
 	}
 	private void Drag(BaseEventData data)
 	{
-		//ÍÏ×§Âß¼­
+		//ï¿½ï¿½×§ï¿½ß¼ï¿½
 	}
 
 	private void PointerDown(BaseEventData data)
 	{
-		//PointerDownÂß¼­
+		//PointerDownï¿½ß¼ï¿½
 	}
 
 	// Update is called once per frame
@@ -44,34 +44,44 @@ public class BuildPanel : BasePanel
 	}
 	void fun()
 	{
-		Debug.Log("¼ÓÔØÍê³É");
+		Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 	public override void ShowMe()
 	{
 		base.ShowMe();
-		//ÏÔÊ¾Ãæ°åÊ± ÏëÒªÖ´ÐÐµÄÂß¼­ Õâ¸öº¯Êý ÔÚUI¹ÜÀíÆ÷ÖÐ »á×Ô¶¯°ïÎÒÃÇµ÷ÓÃ
-		//Ö»ÒªÖØÐ´ÁËËü  ¾Í»áÖ´ÐÐÀïÃæµÄÂß¼­
+		//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ê± ï¿½ï¿½ÒªÖ´ï¿½Ðµï¿½ï¿½ß¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½
+		//Ö»Òªï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½  ï¿½Í»ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 	}
 
 	protected override void OnClick(string btnName)
 	{
-        // TODO: ÇÐ»»×©¿é
+		// TODO: ï¿½Ð»ï¿½×©ï¿½ï¿½
 
-        switch (btnName)
-        {
-            case "btnBlock1":
-            case "btnBlock2":
-            case "btnBlock3":
-            case "btnBlock4":
-            //TODO:½«³¡¾°ÇÐ»»µ½test×´Ì¬
-            case "btnConfirm":
-                UIManager.Instance.HidePanel("BuildPanel");
+		switch (btnName)
+		{
+			case "btnBlock1":
+				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_1);
+				break;
+			case "btnBlock2":
+				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_2);
+				break;
+			case "btnBlock3":
+				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_3);
+				break;
+			case "btnBlock4":
+				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_4);
+				break;
+			//FIXME:buildPanel UI bug
+			case "btnConfirm":
+				EventCenter.Instance.EventTrigger(E_EventType.E_Start_Level);
+				EventCenter.Instance.EventTrigger(E_EventType.E_Enter_Next_State);
+				UIManager.Instance.HidePanel("BuildPanel");
 				UIManager.Instance.ShowPanel<testPanel>("testPanel");
-            break;
-        }
-    }
+			break;
+		}
+	}
 	public void InitInfo()
 	{
-		Debug.Log("³õÊ¼»¯Êý¾Ý");
+		Debug.Log("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 }

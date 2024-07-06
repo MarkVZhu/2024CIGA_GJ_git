@@ -24,11 +24,6 @@ public class CarMoveAuto : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.Space) && InGameManager.Instance.currentState == InGameManager.GameState.Build)
-		{
-			Debug.Log("Space pressed");
-			InGameManager.Instance.ConfirmState();
-		}
 		
 		if(InGameManager.Instance.currentState == InGameManager.GameState.Test)
 		{
