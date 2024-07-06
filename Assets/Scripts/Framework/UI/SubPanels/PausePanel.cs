@@ -32,7 +32,11 @@ public class PausePanel : BasePanel {
 
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			UIManager.Instance.HidePanel("PausePanel");
+			Time.timeScale = (1);
+		}
 	}
 
     public override void ShowMe()
@@ -41,10 +45,12 @@ public class PausePanel : BasePanel {
         //显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
         //只要重写了它  就会执行里面的逻辑
     }
-
+	void fun() { }
     protected override void OnClick(string btnName)
 	{
-		switch(btnName)
+		int id = ScenesMgr.Instance.GetSceneInd();
+		Debug.Log(id);
+		switch (btnName)
 		{
 			case "btnCont":
 				Debug.Log("btnCont被点击");
@@ -52,6 +58,8 @@ public class PausePanel : BasePanel {
 				break;
 			case "btnResume":
 				Debug.Log("btnResume被点击");
+				ScenesMgr.Instance.LoadScene(id, fun);
+				UIManager.Instance.HidePanel("PausePanel");
 				break;
 			case "btnMain":
 				Debug.Log("btnMain被点击");

@@ -13,12 +13,17 @@ public class UIBase : BasePanel
         //进入主菜单
         UIManager.Instance.ShowPanel<MapPanel>("MapPanel");
         //TODO：播放音乐
+        Time.timeScale = (1);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+                UIManager.Instance.ShowPanel<PausePanel>("PausePanel");
+                Time.timeScale = (0);
+        }
     }
 }
