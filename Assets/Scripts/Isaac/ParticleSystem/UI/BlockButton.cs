@@ -12,7 +12,7 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHandle
     public Color ButtonClickColor;
     private void Start()
     {
-        
+        buttonImage = GetComponent<Image>();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -21,11 +21,11 @@ public class BlockButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        buttonImage.color = ButtonEnterColor;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        buttonImage.color = ButtonNormalColor;
     }
 }

@@ -64,6 +64,9 @@ public class ParticleCreatePanel : MonoBehaviour
     private MouseState curState;
     private Point curPoint = new Point(-1, -1);
     private List<GameObject> connectionLines;
+
+    //Used to store the block status, so that player can recover the block they have built
+    private List<List<bool>> connectionResult;
     #endregion
     private void Awake()
     {
@@ -95,6 +98,11 @@ public class ParticleCreatePanel : MonoBehaviour
 
             curState = MouseState.MouseUp;
             displayConnection();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var res = CalculateConnectionResult();
+            Debug.Log($"Hardness: {res[0]}, Smoothness: {res[1]}, Bounceness:{res[2]}");
         }
         
     }
@@ -139,6 +147,10 @@ public class ParticleCreatePanel : MonoBehaviour
             {
                 return;
             }
+            if (nextPoint.X < 0 || nextPoint.X > 4 || nextPoint.Y < 0 || nextPoint.Y > 4)
+            {
+                return;
+            }
             if (curPoint.X >= 0 && checkIfNeighbour(curPoint, nextPoint))
             {
                 if (m_pointNeighbours.ContainsKey(curPoint) && m_pointNeighbours[curPoint].Contains(nextPoint))
@@ -174,6 +186,68 @@ public class ParticleCreatePanel : MonoBehaviour
         m_pointNeighbours[B].Remove(A);
     }
 
+    public float[] CalculateConnectionResult()
+    {
+        float totalConnection = 0;
+        float horizontalConnection = 0;
+        float verticalConnection = 0;
+
+        connectionResult = new List<List<bool>>();
+        connectionResult.Add(new List<bool>());
+        connectionResult.Add(new List<bool>());
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 1; j < 5; j++)
+            {
+                Point cur = new Point(j, i);
+                if(m_pointNeighbours.ContainsKey(cur) && m_pointNeighbours[cur].Contains(new Point(j - 1, i)))
+                {
+                    connectionResult[0].Add(true);
+                    //Used to calculate hardness, bounceness, etc.
+                    totalConnection++;
+                    horizontalConnection++;
+                }
+                else
+                {
+                    connectionResult[0].Add(false);
+                }
+            }
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 1; j < 5; j++)
+            {
+                Point cur = new Point(i, j);
+                if(m_pointNeighbours.ContainsKey(cur) && m_pointNeighbours[cur].Contains(new Point(i, j - 1)))
+                {
+                    connectionResult[0].Add(true);
+                    totalConnection++;
+                    verticalConnection++;
+                }
+                else
+                {
+                    connectionResult[0].Add(false);
+                }
+            }
+        }
+        float hardness =  (totalConnection / 40f * 10f);
+        float smoothness = 1f - Mathf.Abs(verticalConnection - horizontalConnection) / 20;
+        float bounceness = 0;
+        if(1<Mathf.Abs(verticalConnection-horizontalConnection)&& Mathf.Abs(verticalConnection - horizontalConnection) < 19)
+        {
+            float e = 2.23f;
+            float a = 2f * 151.576f / Mathf.PI;
+            float b = Mathf.Abs(verticalConnection - horizontalConnection) - 12;
+            float c = Mathf.Pow(4 * b, 2) + Mathf.Pow(8.6148f, 2);
+            float d = 8.6148f / c;
+            bounceness = (a * d + e) / 14f;
+        }
+        float[] result = new float[] {hardness, smoothness, bounceness };
+
+        return result;
+       
+    }
 
     private bool checkIfNeighbour(Point A, Point B)
     {
