@@ -100,7 +100,6 @@ public class ParticleCreatePanel : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-
             curState = MouseState.MouseUp;
             displayConnection();
 
