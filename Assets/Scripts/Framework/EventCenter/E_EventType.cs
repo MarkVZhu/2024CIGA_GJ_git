@@ -30,7 +30,8 @@ namespace MarkFramework
 		/// <summary>
 		/// UI elements' value change
 		/// </summary>
-		E_Raise_Property
+		E_Raise_Property,
+		E_Start_Level,
 		
 	}
 }
