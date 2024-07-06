@@ -39,14 +39,14 @@ public class PausePanel : BasePanel {
 		}
 	}
 
-    public override void ShowMe()
-    {
-        base.ShowMe();
-        //显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
-        //只要重写了它  就会执行里面的逻辑
-    }
+	public override void ShowMe()
+	{
+		base.ShowMe();
+		//显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
+		//只要重写了它  就会执行里面的逻辑
+	}
 	void fun() { }
-    protected override void OnClick(string btnName)
+	protected override void OnClick(string btnName)
 	{
 		int id = ScenesMgr.Instance.GetSceneInd();
 		Debug.Log(id);
@@ -55,6 +55,7 @@ public class PausePanel : BasePanel {
 			case "btnCont":
 				Debug.Log("btnCont被点击");
 				UIManager.Instance.HidePanel("PausePanel");
+				UIManager.Instance.ShowPanel<testPanel>("testPanel");
 				break;
 			case "btnResume":
 				Debug.Log("btnResume被点击");

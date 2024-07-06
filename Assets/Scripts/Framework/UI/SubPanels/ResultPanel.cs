@@ -50,7 +50,7 @@ public class ResultPanel : BasePanel {
 	}
 	void fun()
 	{
-		Debug.Log("加载完成");
+		InGameManager.Instance.ResetGameState();
 	}
 	public override void ShowMe()
 	{

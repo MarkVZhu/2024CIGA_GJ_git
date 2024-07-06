@@ -49,6 +49,9 @@ namespace MarkFramework
 		/// </summary>
 		E_Enter_Next_State,
 		
+		E_Call_ParticlePanel,
+		E_Change_Block_For_Building
+		
 	}
 }
 
