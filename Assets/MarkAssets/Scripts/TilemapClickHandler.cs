@@ -17,7 +17,7 @@ public class TilemapClickHandler : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && InGameManager.Instance.currentState == InGameManager.GameState.Build)
 		{
 			// Get the mouse position in world coordinates
 			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);

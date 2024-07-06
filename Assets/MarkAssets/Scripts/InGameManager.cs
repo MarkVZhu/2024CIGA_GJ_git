@@ -18,9 +18,16 @@ public class InGameManager : SingletonMono<InGameManager>
 	public GameState currentState;
 	private bool GameSuccess;
 
+	protected override void Awake()
+	{
+		base.Awake();
+		DontDestroyOnLoad(this);
+	}
+	
 	void Start()
 	{
 		EventCenter.Instance.AddEventListener(E_EventType.E_Enter_Next_State, ConfirmState);
+		Debug.LogWarning("添加listener");
 		
 		// 初始化状态为Research
 		currentState = GameState.Research;
@@ -67,12 +74,12 @@ public class InGameManager : SingletonMono<InGameManager>
 				Debug.Log("Entered Test State");
 				break;
 			case GameState.Lose:
-				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");
 				UIManager.Instance.HidePanel("testPanel");
+				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
-				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
 				UIManager.Instance.HidePanel("testPanel");
+				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
 				Debug.Log("Entered Success State");
 				break;
 		}
@@ -107,8 +114,10 @@ public class InGameManager : SingletonMono<InGameManager>
 	
 	public void ResetGameState()
 	{
-		EnterState(GameState.Research);
+		currentState = GameState.Research;
+		EnterState(currentState);
 		GameSuccess = false;
+		//UIManager.Instance.panelDic.Clear();
 	}
 		
 }

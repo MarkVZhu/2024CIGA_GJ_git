@@ -61,6 +61,7 @@ public class MainPanel : BasePanel {
 			case "btnStart":
 				Debug.Log("btnStart被点击");
 				UIManager.Instance.HidePanel("MainPanel");
+				UIManager.Instance.HidePanel("PausePanel");
 				UIManager.Instance.ShowPanel<MapPanel>("MapPanel");
 				break;
 			case "btnQuit":

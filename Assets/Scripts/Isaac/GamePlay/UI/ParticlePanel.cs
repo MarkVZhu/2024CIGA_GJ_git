@@ -69,7 +69,6 @@ public class ParticlePanel : MonoBehaviour
 	{
 		EventCenter.Instance.RemoveEventListener(E_EventType.E_Call_ParticlePanel,HandleCallPanel);
 		EventCenter.Instance.RemoveEventListener(E_EventType.E_Block_Update, UpdateBlockUI);
-
 	}
 	private void UpdateBlockButtonUI(int index)
 	{
@@ -109,7 +108,7 @@ public class ParticlePanel : MonoBehaviour
 	public void OnClickConfirm()
 	{
 		gameObject.SetActive(false);
-		InGameManager.Instance.ConfirmState();
+		EventCenter.Instance.EventTrigger(E_EventType.E_Enter_Next_State);
 	}
 	
 	private void UpdateBlockUI()

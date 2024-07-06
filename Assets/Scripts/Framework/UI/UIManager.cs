@@ -128,7 +128,7 @@ namespace MarkFramework
 				panel.ShowMe();
 
 				//把面板存起来
-				panelDic.Add(panelName, panel);
+				if(!panelDic.ContainsKey(panelName)) panelDic.Add(panelName, panel);
 			});
 		}
 

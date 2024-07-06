@@ -68,11 +68,12 @@ public class ResultPanel : BasePanel {
 		{
 			case "btnResume":
 				Debug.Log("btnResume被点击");
-                ScenesMgr.Instance.LoadScene(id,fun);
+				ScenesMgr.Instance.LoadScene(id,fun);
 				UIManager.Instance.HidePanel("ResultPanel");
 				break;
 			case "btnMain":
 				Debug.Log("btnMain被点击");
+				fun();
 				UIManager.Instance.HidePanel("ResultPanel");
 				UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
 				break;

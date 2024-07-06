@@ -19,6 +19,16 @@ public class PausePanel : BasePanel {
 		InitInfo();
 		//开始逻辑
 	}
+	
+	void OnEnable()
+	{
+		Time.timeScale = 0;
+	}
+	
+	void OnDisable()
+	{
+		Time.timeScale = 1;
+	}
 
 	private void Drag(BaseEventData data)
 	{
@@ -45,7 +55,11 @@ public class PausePanel : BasePanel {
 		//显示面板时 想要执行的逻辑 这个函数 在UI管理器中 会自动帮我们调用
 		//只要重写了它  就会执行里面的逻辑
 	}
-	void fun() { }
+	void fun() 
+	{ 
+		InGameManager.Instance.ResetGameState();
+	}
+	
 	protected override void OnClick(string btnName)
 	{
 		int id = ScenesMgr.Instance.GetSceneInd();
@@ -64,8 +78,9 @@ public class PausePanel : BasePanel {
 				break;
 			case "btnMain":
 				Debug.Log("btnMain被点击");
-				UIManager.Instance.HidePanel("PausePanel");
-				UIManager.Instance.ShowPanel<MainPanel>("MainPanel");
+				InGameManager.Instance.ResetGameState();
+				//UIManager.Instance.HidePanel("PausePanel");
+				UIManager.Instance.ShowPanel<MainPanel>("MainPanel",E_UI_Layer.Top);
 				break;
 		}
 	}

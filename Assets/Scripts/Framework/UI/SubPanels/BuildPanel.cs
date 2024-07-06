@@ -71,7 +71,7 @@ public class BuildPanel : BasePanel
 			case "btnBlock4":
 				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_4);
 				break;
-			//TODO:�������л���test״̬
+			//FIXME:buildPanel UI bug
 			case "btnConfirm":
 				EventCenter.Instance.EventTrigger(E_EventType.E_Start_Level);
 				EventCenter.Instance.EventTrigger(E_EventType.E_Enter_Next_State);
