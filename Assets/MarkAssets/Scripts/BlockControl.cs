@@ -10,26 +10,33 @@ public class BlockControl : MonoBehaviour
 	int hardness;
 	float bounce;
 	float smooth;
+	//Collider2D collider2D;
 	
 	public HardnessEffector hardnessEffector;
 	public AreaEffector2D bounceEffector;
+	public AreaEffector2D bounceEffectorL;
+	public AreaEffector2D bounceEffectorR;
 	public AreaEffector2D smoothEffector;
 	
 	public int bounceMultiplier = 1500;
 	public int smoothMultiplier = 1000;
-	
-	void Start()
-	{
-		sr = GetComponent<SpriteRenderer>();
-		if (sr != null) SetBlockColor();
-	}
 	
 	void OnEnable() 
 	{
 		SetProperty();
 		hardnessEffector.hardness = hardness;
 		bounceEffector.forceMagnitude = bounce * bounceMultiplier;
+		bounceEffectorL.forceMagnitude = bounce * bounceMultiplier;
+		bounceEffectorR.forceMagnitude = bounce * bounceMultiplier;
 		smoothEffector.forceMagnitude = smooth * smoothMultiplier;
+	}
+	
+	void Start()
+	{
+		//collider2D = GetComponent<Collider2D>();
+		sr = GetComponent<SpriteRenderer>();
+		if (sr != null) SetBlockColor();
+		//collider2D.sharedMaterial.bounciness = bounce * 5;
 	}
 	
 	void SetProperty()
@@ -75,7 +82,7 @@ public class BlockControl : MonoBehaviour
 		smooth = Mathf.Clamp01(smooth);
 
 		// Map the values to 0~255 range
-		int r = Mathf.RoundToInt(Map(hardness, 0, 10, 100, 255));
+		int r = Mathf.RoundToInt(Map(hardness, 0, 10, 50, 150));
 		int g = Mathf.RoundToInt(Map(bounce, 0, 1, 0, 255));
 		int b = Mathf.RoundToInt(Map(smooth, 0, 1, 0, 255));
 

@@ -31,7 +31,22 @@ namespace MarkFramework
 		/// UI elements' value change
 		/// </summary>
 		E_Raise_Property,
+		
+		/// <summary>
+		/// When player start playing after building
+		/// </summary>
 		E_Start_Level,
+		
+		/// <summary>
+		/// Build customized block
+		/// </summary>
+		E_Build_Block,
+		E_Delete_Block,
+		
+		/// <summary>
+		/// In game manager, switch state
+		/// </summary>
+		E_Enter_Next_State,
 		
 	}
 }
