@@ -125,8 +125,25 @@ public class CameraMovement : MonoBehaviour
 			return;
 		}
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
+		var mainCamera = Camera.main;
+		Vector3 bottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+		Vector3 topRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.nearClipPlane));
+
+		//If overwhelm bound, do not move camera;
+		if (bottomLeft.x <= MinBound.x+0.2f ||
+			bottomLeft.y <= MinBound.y+0.2f ||
+			topRight.x >= MaxBound.x-0.2f ||
+			topRight.y >= MaxBound.y-0.2f)
+		{
+            if (scroll < 0)
+            {
+				return;
+			}
+			
+		}
 		if (scroll != 0.0f)
 		{
+			
 			virtualCamera.m_Lens.OrthographicSize -= scroll * zoomSpeed;
 			virtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(virtualCamera.m_Lens.OrthographicSize, zoomMinSize, zoomMaxSize); // Adjust these values as needed
 		}
