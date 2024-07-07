@@ -46,8 +46,6 @@ public class InGameManager : SingletonMono<InGameManager>
 		currentState = GameState.Research;
 		EnterState(currentState);
 
-
-		GameModel.Instance.CurLevel = 0;
 		GameModel.Instance.PropertyValueChanged += HandleGameModel;
 	}
 	private void HandleGameModel(object sender, Mine.PropertyValueChangedEventArgs e)
@@ -129,14 +127,16 @@ public class InGameManager : SingletonMono<InGameManager>
 				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
-				UIManager.Instance.HidePanel("testPanel");
-				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
-				camera.SetToIdle();
-
 				GameModel.Instance.CurGameState = GameState.Success;
-
 				//LevelData的数据最后更新，否则可能GameModel的数据还未更新
 				UpdateLevelData();
+				camera.SetToIdle();
+
+				UIManager.Instance.HidePanel("testPanel");
+				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
+		
+				
+
 				Debug.Log("Entered Success State");
 				break;
 		}
@@ -154,8 +154,12 @@ public class InGameManager : SingletonMono<InGameManager>
 		{
 			LevelDatas.Levels[curlevel].LevelHighestScore = GameModel.Instance.Score;
 		}
-		if (curlevel < LevelDatas.Levels.Length)
-			LevelDatas.Levels[GameModel.Instance.CurLevel + 1].isUnlocked = true;
+		if (curlevel < LevelDatas.Levels.Length - 1)
+        {
+			GameModel.Instance.CurLevel++;
+			LevelDatas.Levels[GameModel.Instance.CurLevel].isUnlocked = true;
+		}
+			
 	}
 	// 确定当前状态并进入下一个状态的方法
 	public void ConfirmState()
