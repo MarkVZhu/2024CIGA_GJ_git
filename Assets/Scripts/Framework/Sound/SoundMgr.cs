@@ -8,7 +8,7 @@ namespace MarkFramework
 	public class SoundMgr : BaseManager<SoundMgr>
 	{
 		private AudioSource bkMusic = null;
-		private float bkValue = 1;
+		private float bkValue = 0.8f;
 		
 		private GameObject soundObj = null;
 		private List<AudioSource> soundList = new List<AudioSource>();
