@@ -23,7 +23,6 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         SetToMoveWithMouseMode();
-        cam = Camera.main;
         initialPosition = transform.position; // Save the initial position of the camera
     }
 
@@ -52,6 +51,11 @@ public class CameraMovement : MonoBehaviour
     public void SetToMoveWithMouseMode()
     {
         cameraState = CameraStates.MoveWithMouse;
+        virtualCamera.Follow = null;
+    }
+    public void SetToIdle()
+    {
+        cameraState = CameraStates.Idle;
         virtualCamera.Follow = null;
     }
     void moveWithMouse()
@@ -98,12 +102,6 @@ public class CameraMovement : MonoBehaviour
         // Apply the movement to the camera
         virtualCamera.transform.position += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
     }
-
-    public Transform target; // The target to follow
-    public float smoothSpeed = 0.125f; // Smooth speed for camera movement
-    public Vector2 screenCenterThreshold = new Vector2(0.25f, 0.25f); // Threshold for the central area (fraction of screen width and height)
-
-    private Camera cam;
 
   
     private bool IsMouseOverUI()
