@@ -94,19 +94,19 @@ public class MapPanel : BasePanel {
 		{
 			case "btnLevel1":
 				UIManager.Instance.HidePanel("MapPanel");
-				ScenesMgr.Instance.LoadScene("LevelSample_1", fun); //加载关卡
+				ScenesMgr.Instance.LoadScene("Level_1", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;
 			case "btnLevel2":
 				UIManager.Instance.HidePanel("MapPanel");
-				ScenesMgr.Instance.LoadScene("Lev2", fun); //加载关卡
+				ScenesMgr.Instance.LoadScene("Level_2", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;
 			case "btnLevel3":
 				UIManager.Instance.HidePanel("MapPanel");
-				ScenesMgr.Instance.LoadScene("Lev3", fun); //加载关卡
+				ScenesMgr.Instance.LoadScene("Level_3", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
 				break;

@@ -26,6 +26,7 @@ public class CreateBlock : MonoBehaviour
 			bc.blockNum = e_BlockNum;
 			Instantiate(customizedBlockPref, cellPosition, Quaternion.identity);
 			limitNum--;
+			EventCenter.Instance.EventTrigger<int>(E_EventType.E_LimitNum_Change, limitNum);
 			Debug.Log("limitNum " + limitNum);
 		}
 		else
@@ -38,6 +39,7 @@ public class CreateBlock : MonoBehaviour
 	void LimitNumRestore()
 	{
 		limitNum++;
+		EventCenter.Instance.EventTrigger<int>(E_EventType.E_LimitNum_Change, limitNum);
 	}
 	
 	void ChangeBlock(E_BlockNum e)

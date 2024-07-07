@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MarkFramework;
+using TMPro;
 public class BuildPanel : BasePanel
 {
 	protected override void Awake()
 	{
-		//һ�������� ��Ϊ��Ҫִ�и����awake����ʼ��һЩ��Ϣ �����ҿؼ� ���¼�����
 		base.Awake();
-		//�����洦���Լ���һЩ��ʼ���߼�
+		EventCenter.Instance.AddEventListener<int>(E_EventType.E_LimitNum_Change, LimitNumChange);
 	}
 
 	// Use this for initialization
@@ -20,6 +20,8 @@ public class BuildPanel : BasePanel
 		{
 			BtnInit("btnBlock" + i);
 		}
+		
+		
 	}
 	private void BtnInit(string btnName)
 	{
@@ -27,14 +29,11 @@ public class BuildPanel : BasePanel
 		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
 
 	}
-	private void Drag(BaseEventData data)
+	
+	void LimitNumChange(int v)
 	{
-		//��ק�߼�
-	}
-
-	private void PointerDown(BaseEventData data)
-	{
-		//PointerDown�߼�
+		TextMeshProUGUI textMeshPro = GetControl<TextMeshProUGUI>("BlockLeftText");
+		textMeshPro.text = v.ToString();
 	}
 
 	// Update is called once per frame
@@ -42,6 +41,7 @@ public class BuildPanel : BasePanel
 	{
 
 	}
+	
 	void fun()
 	{
 		Debug.Log("�������");

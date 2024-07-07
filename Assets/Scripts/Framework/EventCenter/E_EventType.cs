@@ -50,7 +50,8 @@ namespace MarkFramework
 		E_Enter_Next_State,
 		
 		E_Call_ParticlePanel,
-		E_Change_Block_For_Building
+		E_Change_Block_For_Building,
+		E_LimitNum_Change,
 		
 	}
 }
