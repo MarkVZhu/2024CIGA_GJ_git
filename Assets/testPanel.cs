@@ -37,10 +37,6 @@ public class testPanel : BasePanel
 				UIManager.Instance.HidePanel("testPanel");
 				UIManager.Instance.ShowPanel<PausePanel>("PausePanel");
 				break;
-			case "btnReset":
-				ScenesMgr.Instance.LoadScene(id, fun);
-				UIManager.Instance.HidePanel("testPanel");
-				break;
 		}
 	}
 }
