@@ -21,15 +21,21 @@ public class InGameManager : SingletonMono<InGameManager>
 	//摄像机
 	public CameraMovement camera;
 
+	//LevelData
+	public LevelData LevelDatas;
+
 	protected override void Awake()
 	{
 		base.Awake();
 		DontDestroyOnLoad(this);
 
-		
+
 	}
 	
-	void Start()
+	
+   
+
+    void Start()
 	{
 		EventCenter.Instance.AddEventListener(E_EventType.E_Enter_Next_State, ConfirmState);
 		Debug.LogWarning("添加listener");
@@ -40,10 +46,24 @@ public class InGameManager : SingletonMono<InGameManager>
 		currentState = GameState.Research;
 		EnterState(currentState);
 
-		
 
+		GameModel.Instance.CurLevel = 0;
+		GameModel.Instance.PropertyValueChanged += HandleGameModel;
 	}
+	private void HandleGameModel(object sender, Mine.PropertyValueChangedEventArgs e)
+	{
+		switch (e.PropertyName)
+		{
+			case "CurGameState":
+				//当前关卡成功时，更新关卡SO信息
+				if ((GameState)e.Value == GameState.Success)
+				{
 
+				}
+				break;
+
+		}
+	}
 	// void Update()
 	// {
 	// 	// 在这里可以处理不同状态下的逻辑
@@ -96,27 +116,47 @@ public class InGameManager : SingletonMono<InGameManager>
 			case GameState.Test:
 				Debug.Log("Entered Test State");
 				camera = Camera.main.GetComponent<CameraMovement>();
+				camera.SetToTraceMode();
 				GameModel.Instance.CurGameState = GameState.Test;
 
-				camera.SetToTraceMode();
+				
 				break;
 			case GameState.Lose:
 				UIManager.Instance.HidePanel("testPanel");
-				GameModel.Instance.CurGameState = GameState.Lose;
 				camera.SetToIdle();
+
+				GameModel.Instance.CurGameState = GameState.Lose;
 				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
 				UIManager.Instance.HidePanel("testPanel");
 				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
+				camera.SetToIdle();
 
 				GameModel.Instance.CurGameState = GameState.Success;
-				camera.SetToIdle();
+
+				//LevelData的数据最后更新，否则可能GameModel的数据还未更新
+				UpdateLevelData();
 				Debug.Log("Entered Success State");
 				break;
 		}
 	}
+	void UpdateLevelData()
+    {
+		int curlevel = GameModel.Instance.CurLevel;
 
+		if (GameModel.Instance.StarCount > LevelDatas.Levels[curlevel].StarCount)
+		{
+			LevelDatas.Levels[curlevel].StarCount = GameModel.Instance.StarCount;
+
+		}
+		if (GameModel.Instance.Score > LevelDatas.Levels[curlevel].LevelHighestScore)
+		{
+			LevelDatas.Levels[curlevel].LevelHighestScore = GameModel.Instance.Score;
+		}
+		if (curlevel < LevelDatas.Levels.Length)
+			LevelDatas.Levels[GameModel.Instance.CurLevel + 1].isUnlocked = true;
+	}
 	// 确定当前状态并进入下一个状态的方法
 	public void ConfirmState()
 	{

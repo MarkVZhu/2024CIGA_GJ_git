@@ -4,11 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using MarkFramework;
+using TMPro;
 
 public class MapPanel : BasePanel {
 	int btnnum = 3;//按钮数量
 	int starcnt = 0;
 	public LevelData curld;//当前玩家数据
+
+	public TextMeshProUGUI[] TextScores;
+
+
 	protected override void Awake()
 	{
 		//一定不能少 因为需要执行父类的awake来初始化一些信息 比如找控件 加事件监听
@@ -31,8 +36,10 @@ public class MapPanel : BasePanel {
 				string btnName = "btnLevel"+i;
 				Debug.Log(btnName);
 				BtnInit(btnName,i);
-            }
-		curld.Levels[0].isUnlocked = true;
+
+			TextScores[i - 1].text = $"Score: {curld.Levels[i - 1].LevelHighestScore}";
+
+			}
 		//}
 	}
 	private void BtnInit(string btnName,int i)
@@ -97,18 +104,42 @@ public class MapPanel : BasePanel {
 				ScenesMgr.Instance.LoadScene("Level_1", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
+
+				//选择关卡后，将选择的关卡索引传给Model
+                if (GameModel.Instance != null)
+                {
+					GameModel.Instance.CurLevel = 0;
+                }
 				break;
 			case "btnLevel2":
+                if (!curld.Levels[1].isUnlocked)
+                {
+					break;
+                }
 				UIManager.Instance.HidePanel("MapPanel");
 				ScenesMgr.Instance.LoadScene("Level_2", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
+
+				if (GameModel.Instance != null)
+				{
+					GameModel.Instance.CurLevel = 1;
+				}
 				break;
 			case "btnLevel3":
+				if (!curld.Levels[2].isUnlocked)
+				{
+					break;
+				}
 				UIManager.Instance.HidePanel("MapPanel");
 				ScenesMgr.Instance.LoadScene("Level_3", fun); //加载关卡
 				UIManager.Instance.HidePanel("MapPanel");
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
+
+				if (GameModel.Instance != null)
+				{
+					GameModel.Instance.CurLevel = 2;
+				}
 				break;
 			case "btnMain":
 				UIManager.Instance.HidePanel("MapPanel");
