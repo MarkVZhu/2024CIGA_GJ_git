@@ -46,7 +46,7 @@ public class CameraMovement : MonoBehaviour
     public void SetToTraceMode()
     {
         cameraState = CameraStates.Trace;
-        virtualCamera.Follow = Target;
+        virtualCamera.Follow = Target.GetChild(0);
     }
     public void SetToMoveWithMouseMode()
     {
