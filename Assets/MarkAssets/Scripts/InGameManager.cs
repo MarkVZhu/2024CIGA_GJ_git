@@ -73,7 +73,13 @@ public class InGameManager : SingletonMono<InGameManager>
 		switch (state)
 		{
 			case GameState.Research:
+				UIManager.Instance.ShowPanel<HUDPanel>("HUDPanel", E_UI_Layer.Bot);
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
+
+                if (GameModel.Instance != null)
+                {
+					GameModel.Instance.CurGameState = GameState.Research;
+                }
 
 				//给摄像机变量赋值,如果不在这里赋值，则会导致加载场景时，camera引用丢失
 				camera = Camera.main.GetComponent<CameraMovement>();
@@ -90,16 +96,21 @@ public class InGameManager : SingletonMono<InGameManager>
 			case GameState.Test:
 				Debug.Log("Entered Test State");
 				camera = Camera.main.GetComponent<CameraMovement>();
+				GameModel.Instance.CurGameState = GameState.Test;
+
 				camera.SetToTraceMode();
 				break;
 			case GameState.Lose:
 				UIManager.Instance.HidePanel("testPanel");
+				GameModel.Instance.CurGameState = GameState.Lose;
 				camera.SetToIdle();
 				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
 				UIManager.Instance.HidePanel("testPanel");
 				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
+
+				GameModel.Instance.CurGameState = GameState.Success;
 				camera.SetToIdle();
 				Debug.Log("Entered Success State");
 				break;

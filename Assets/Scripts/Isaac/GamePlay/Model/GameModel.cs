@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-
+using static InGameManager;
 
 public class GameModel : SingletonMono<GameModel>
 {
@@ -54,6 +54,35 @@ public class GameModel : SingletonMono<GameModel>
         {
             ChangePropertyAndNotify<int>(ref score, value);
         }
+    }
+    private float totalTime;
+    public float TotalTime
+    {
+        get => totalTime;
+        set
+        {
+            ChangePropertyAndNotify<float>(ref totalTime, value);
+        }
+    }
+    private GameState gameState;
+    public GameState CurGameState
+    {
+        get => gameState;
+        set
+        {
+            if(value == GameState.Research)
+            {
+                Score = 0;
+                StarCount = 0;
+                TotalTime = 0;
+            }
+            ChangePropertyAndNotify<GameState>(ref gameState, value);
+        }
+    }
+
+    public void ResetModel()
+    {
+
     }
 }
 namespace Mine

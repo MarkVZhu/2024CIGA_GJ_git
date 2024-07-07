@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    public GameModel model;
+    public int AddScore;
     private bool triggered;
+
     private void Start()
     {
         triggered = false;
@@ -17,6 +18,7 @@ public class Star : MonoBehaviour
         if (!triggered)
         {
             GameModel.Instance.StarCount++;
+            GameModel.Instance.Score += AddScore;
             triggered = true;
         }
 
