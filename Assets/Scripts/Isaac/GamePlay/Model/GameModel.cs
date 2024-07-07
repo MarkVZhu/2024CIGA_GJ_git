@@ -80,6 +80,16 @@ public class GameModel : SingletonMono<GameModel>
         }
     }
 
+    private int curLevel;
+    public int CurLevel
+    {
+        get => curLevel;
+        set 
+        {
+            ChangePropertyAndNotify<int>(ref curLevel, value);
+        }
+    }
+
     public void ResetModel()
     {
 
