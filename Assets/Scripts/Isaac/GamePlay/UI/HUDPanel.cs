@@ -1,23 +1,26 @@
 using MarkFramework;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDPanel : MonoBehaviour
+public class HUDPanel : BasePanel
 {
     private GameModel model;
 
     public Image[] StarImages;
     public Sprite StarActivated;
     public Sprite StarUnactivated;
+
+    public TextMeshProUGUI TextScore;
     // Start is called before the first frame update
     void Start()
     {
         model = GameModel.Instance;
         model.PropertyValueChanged += HandleModel;
 
-            }
+    }
     private void HandleModel(object sender, Mine.PropertyValueChangedEventArgs e)
     {
         switch (e.PropertyName)

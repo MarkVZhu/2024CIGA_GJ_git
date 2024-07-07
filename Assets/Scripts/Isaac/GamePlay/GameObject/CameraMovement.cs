@@ -12,10 +12,19 @@ public enum CameraStates
 }
 public class CameraMovement : MonoBehaviour
 {
+    [Tooltip("Move with mouse")]
     public float speed = 10f; // The speed of the camera movement
     public float screenEdgeThreshold = 0.25f; // The threshold for the center area
+    public Vector2 MinBound;
+    public Vector2 MaxBound;
+
     public CinemachineVirtualCamera virtualCamera;
     public Transform Target;
+
+    [Tooltip("Zoom")]
+    public float zoomSpeed = 2f;
+    public float zoomMaxSize = 10;
+    public float zoomMinSize = 5;
 
     private Vector3 initialPosition;
 
@@ -29,15 +38,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         moveWithMouse();
-       
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            SetToTraceMode();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            SetToMoveWithMouseMode();
-        }
+        ZoomCamera();
     }
     private void LateUpdate()
     {
@@ -100,10 +101,36 @@ public class CameraMovement : MonoBehaviour
         float moveSpeedY = Mathf.Clamp01(Mathf.Abs(normalizedDeltaY) - screenEdgeThreshold) * speed;
 
         // Apply the movement to the camera
-        virtualCamera.transform.position += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
+        Vector3 targetPos = virtualCamera.transform.position + new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
+        var mainCamera = Camera.main;
+        Vector3 bottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+        Vector3 topRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.nearClipPlane));
+        bottomLeft += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
+        topRight += new Vector3(direction.x * moveSpeedX * Time.deltaTime, direction.y * moveSpeedY * Time.deltaTime, 0);
+        //If overwhelm bound, do not move camera;
+        if (bottomLeft.x<MinBound.x||
+            bottomLeft.y<MinBound.y||
+            topRight.x> MaxBound.x||
+            topRight.y> MaxBound.y)
+        {
+            return;
+        }
+        virtualCamera.transform.position = targetPos;
     }
 
-  
+    void ZoomCamera()
+    {
+        if(cameraState != CameraStates.MoveWithMouse)
+        {
+            return;
+        }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0.0f)
+        {
+            virtualCamera.m_Lens.OrthographicSize -= scroll * zoomSpeed;
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(virtualCamera.m_Lens.OrthographicSize, zoomMinSize, zoomMaxSize); // Adjust these values as needed
+        }
+    }
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();

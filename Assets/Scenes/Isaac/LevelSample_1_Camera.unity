@@ -361,8 +361,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   screenEdgeThreshold: 0.9
+  MinBound: {x: -15, y: -9}
+  MaxBound: {x: 15, y: 9}
   virtualCamera: {fileID: 1143085056}
   Target: {fileID: 410965394}
+  zoomSpeed: 2
+  zoomMaxSize: 10
+  zoomMinSize: 5
 --- !u!114 &37259918
 MonoBehaviour:
   m_ObjectHideFlags: 0
