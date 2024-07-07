@@ -22,8 +22,8 @@ public class testPanel : BasePanel
 	}
 	private void BtnInit(string btnName)
 	{
-		Image btbg = GetControl<Image>(btnName);
-		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
+		// Image btbg = GetControl<Image>(btnName);
+		// btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
 
 	}
 	void fun() { }
