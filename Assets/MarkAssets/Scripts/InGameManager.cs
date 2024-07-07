@@ -18,20 +18,30 @@ public class InGameManager : SingletonMono<InGameManager>
 	public GameState currentState;
 	private bool GameSuccess;
 
+	//摄像机
+	public CameraMovement camera;
+
 	protected override void Awake()
 	{
 		base.Awake();
 		DontDestroyOnLoad(this);
+
+		
 	}
 	
 	void Start()
 	{
 		EventCenter.Instance.AddEventListener(E_EventType.E_Enter_Next_State, ConfirmState);
 		Debug.LogWarning("添加listener");
-		
+
+
+
 		// 初始化状态为Research
 		currentState = GameState.Research;
 		EnterState(currentState);
+
+		
+
 	}
 
 	// void Update()
@@ -64,22 +74,33 @@ public class InGameManager : SingletonMono<InGameManager>
 		{
 			case GameState.Research:
 				UIManager.Instance.ShowPanel<preResearchPanel>("preResearchPanel");
+
+				//给摄像机变量赋值,如果不在这里赋值，则会导致加载场景时，camera引用丢失
+				camera = Camera.main.GetComponent<CameraMovement>();
+				camera.SetToMoveWithMouseMode();
+
 				Debug.Log("Entered Research State");
 				break;
 			case GameState.Build:
 				UIManager.Instance.ShowPanel<BuildPanel>("BuildPanel");
+				camera = Camera.main.GetComponent<CameraMovement>();
+				camera.SetToMoveWithMouseMode();
 				Debug.Log("Entered Build State");
 				break;
 			case GameState.Test:
 				Debug.Log("Entered Test State");
+				camera = Camera.main.GetComponent<CameraMovement>();
+				camera.SetToTraceMode();
 				break;
 			case GameState.Lose:
 				UIManager.Instance.HidePanel("testPanel");
+				camera.SetToIdle();
 				UIManager.Instance.ShowPanel<LosePanel>("LosePanel");				
 				break;
 			case GameState.Success:
 				UIManager.Instance.HidePanel("testPanel");
 				UIManager.Instance.ShowPanel<ResultPanel>("ResultPanel");
+				camera.SetToIdle();
 				Debug.Log("Entered Success State");
 				break;
 		}

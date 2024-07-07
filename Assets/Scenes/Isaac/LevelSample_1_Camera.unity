@@ -341,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 37259913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38, y: 0.7980791, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -363,9 +363,6 @@ MonoBehaviour:
   screenEdgeThreshold: 0.9
   virtualCamera: {fileID: 1143085056}
   Target: {fileID: 410965394}
-  target: {fileID: 2039833210}
-  smoothSpeed: 0.125
-  screenCenterThreshold: {x: 0.25, y: 0.25}
 --- !u!114 &37259918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1237,8 +1234,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143085055}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.38, y: 0.7980791, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1885,6 +1882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 1
+  camera: {fileID: 0}
 --- !u!4 &2009281947
 Transform:
   m_ObjectHideFlags: 0
@@ -1942,11 +1940,6 @@ MonoBehaviour:
   TractionFront: 1
   TractionBack: 1
   carRotationSpeed: 100
---- !u!4 &2039833210 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6189591967903635013, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
-  m_PrefabInstance: {fileID: 410965393}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2117099388
 GameObject:
   m_ObjectHideFlags: 0
