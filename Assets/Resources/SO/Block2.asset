@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Block2
   m_EditorClassIdentifier: 
   blockName: Block2
-  hardness: 4
-  bounce: 0.20262074
-  smooth: 0.15
+  hardness: 5
+  bounce: 0
+  smooth: 1
