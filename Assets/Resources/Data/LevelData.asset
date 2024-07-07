@@ -18,12 +18,12 @@ MonoBehaviour:
     LevelHighestScore: 0
     StarCount: 0
     isUnlocked: 1
-  - LevelIndex: 0
+  - LevelIndex: 1
     LevelName: 
     LevelHighestScore: 0
     StarCount: 0
     isUnlocked: 0
-  - LevelIndex: 0
+  - LevelIndex: 2
     LevelName: 
     LevelHighestScore: 0
     StarCount: 0
