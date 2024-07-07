@@ -46,4 +46,11 @@ public class CreateBlock : MonoBehaviour
 	{
 		e_BlockNum = e;
 	}
+	
+	void OnDestroy() 
+	{
+		EventCenter.Instance.RemoveEventListener<Vector3>(E_EventType.E_Build_Block, BuildBlock);
+		EventCenter.Instance.RemoveEventListener(E_EventType.E_Delete_Block, LimitNumRestore);
+		EventCenter.Instance.RemoveEventListener<E_BlockNum>(E_EventType.E_Change_Block_For_Building, ChangeBlock);
+	}
 }

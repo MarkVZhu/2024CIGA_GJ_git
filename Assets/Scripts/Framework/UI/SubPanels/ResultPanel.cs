@@ -30,8 +30,8 @@ public class ResultPanel : BasePanel {
 	{
 		//Button bt = GetControl<Button>(btnName);
 		//bt.interactable = true;
-		Image btbg = GetControl<Image>(btnName);
-		btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
+		// Image btbg = GetControl<Image>(btnName);
+		// btbg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
 
 	}
 	private void Drag(BaseEventData data)

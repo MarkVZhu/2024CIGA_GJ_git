@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3058284338718311919}
   - component: {fileID: 6984378546489764604}
   - component: {fileID: 2528891702129346923}
-  - component: {fileID: 4019030040648686793}
+  - component: {fileID: 506786805755990702}
   m_Layer: 0
   m_Name: carBody
   m_TagString: Untagged
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e420260b1a60af648a939b619f93cc92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -305,7 +305,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!235 &6984378546489764604
 WheelJoint2D:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ WheelJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
---- !u!114 &4019030040648686793
+--- !u!114 &506786805755990702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -365,18 +365,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3204155593597336518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89b2f9b92dc40b347b65ef9ea2184731, type: 3}
+  m_Script: {fileID: 11500000, guid: cf89b4a342941064b94c091fc780dfa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frontwheel: {fileID: 6984378546489764604}
-  backwheel: {fileID: 2528891702129346923}
-  speedF: 1000
-  speedB: -800
-  torqueF: 10000
-  torqueB: 10000
+  backwheel: {fileID: 6984378546489764604}
+  speedF: 1200
+  torqueF: 150
+  torqueB: 2
   TractionFront: 1
   TractionBack: 1
-  carRotationSpeed: 70
+  carRotationSpeed: 100
 --- !u!1 &4217734897612995996
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +402,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.2, y: -8.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6189591967903635013}
@@ -679,7 +678,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.062
+  m_Radius: 1
 --- !u!50 &1312835154545627161
 Rigidbody2D:
   serializedVersion: 4

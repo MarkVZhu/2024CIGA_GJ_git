@@ -29,6 +29,7 @@ public class TilemapClickHandler : MonoBehaviour
 			// Convert the cell position back to world position to get the center of the cell
 			Vector3 cellCenterPosition = tilemap.GetCellCenterWorld(cellPosition);
 
+			//Debug.Log("Collider: " + Physics2D.OverlapPoint(worldPoint, blockLayer).gameObject.name);
 			// Print the cell center position
 			if (!Physics2D.OverlapPoint(worldPoint, blockLayer))
 			{

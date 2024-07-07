@@ -16,7 +16,7 @@ public class PausePanel : BasePanel {
 
 	// Use this for initialization
 	void Start () {
-		InitInfo();
+
 		//开始逻辑
 	}
 	
@@ -88,21 +88,6 @@ public class PausePanel : BasePanel {
 	protected override void OnValueChanged(string toggleName, bool value)
 	{
 		//在这来根据名字判断 到底是那一个单选框或者多选框状态变化了 当前状态就是传入的value
-	}
-
-
-	public void InitInfo()
-	{
-		//初始化按钮的图片
-		//Image bg = GetControl<Image>("PausePanel");
-		//bg.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_27");
-		Image btnCont = GetControl<Image>("btnCont");
-		btnCont.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
-		Image btnResume = GetControl<Image>("btnResume");
-		btnResume.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
-		Image btnName = GetControl<Image>("btnMain");
-		btnName.sprite = ResMgr.Instance.LoadSpriteFromSheet("Image/GUI", "GUI_7");
-		Debug.Log("初始化数据");
 	}
 
 	//点击开始按钮的处理(可以放到switch里)
