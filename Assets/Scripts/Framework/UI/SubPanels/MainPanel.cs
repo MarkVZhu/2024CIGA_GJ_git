@@ -65,7 +65,7 @@ public class MainPanel : BasePanel {
 				UIManager.Instance.ShowPanel<MapPanel>("MapPanel");
 				break;
 			case "btnQuit":
-				Debug.Log("btnQuit被点击");
+				Application.Quit();
 				break;
 		}
 	}
