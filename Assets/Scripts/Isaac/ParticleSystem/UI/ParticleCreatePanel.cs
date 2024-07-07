@@ -118,6 +118,8 @@ public class ParticleCreatePanel : MonoBehaviour
             SoundMgr.Instance.PlaySoundRandom(new string[] { 
             "ButtonClick_Bubble2", "ButtonClick_Bubble3", "ButtonClick_Bubble4"});
 
+            curPoint = new Point(-1, -1);
+
             Debug.Log($"Hardness: {res[0]}, Smoothness: {res[1]}, Bounceness:{res[2]}");
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -268,15 +270,18 @@ public class ParticleCreatePanel : MonoBehaviour
             {
                 return;
             }
+            Debug.Log("handle");
             if (curPoint.X >= 0 && checkIfNeighbour(curPoint, nextPoint))
             {
                 if (m_pointNeighbours.ContainsKey(curPoint) && m_pointNeighbours[curPoint].Contains(nextPoint))
                 {
                     DisconnectPoint(curPoint, nextPoint);
+                    Debug.Log($"disconnect {curPoint} and {nextPoint}");
                 }
                 else
                 {
                     ConnectPoint(curPoint, nextPoint);
+                    Debug.Log($"connect {curPoint} and {nextPoint}");
                 }
 
             }
