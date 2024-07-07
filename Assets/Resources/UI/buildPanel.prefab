@@ -1282,7 +1282,7 @@ GameObject:
   - component: {fileID: 6979622349966091883}
   - component: {fileID: 4185784567032285200}
   m_Layer: 5
-  m_Name: BuildPanel
+  m_Name: buildPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1364,6 +1364,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c10389b51c374438fede5e1648ba22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonBlocks:
+  - {fileID: 6979622349917468687}
+  - {fileID: 6299832017031841433}
+  - {fileID: 1713048784356664204}
+  - {fileID: 6981024755550822813}
+  BlockMoveDistance: {x: 0, y: 10, z: 0}
+  BlockOriginPos: {x: 0, y: 0, z: 0}
+  BlockMoveSpeed: 1000
 --- !u!1 &6979622350181659178
 GameObject:
   m_ObjectHideFlags: 0

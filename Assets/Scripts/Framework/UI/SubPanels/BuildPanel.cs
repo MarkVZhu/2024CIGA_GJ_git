@@ -7,6 +7,7 @@ using MarkFramework;
 using TMPro;
 public class BuildPanel : BasePanel
 {
+	public Transform[] ButtonBlocks;
 	protected override void Awake()
 	{
 		base.Awake();
@@ -22,6 +23,9 @@ public class BuildPanel : BasePanel
 		}
 		GameObject bkc = GameObject.FindGameObjectWithTag("BlockController");
 		GetControl<TextMeshProUGUI>("BlockLeftText").text = bkc.GetComponent<CreateBlock>().limitNum.ToString();
+
+		BlockOriginPos = ButtonBlocks[0].position;
+	
 	}
 	private void BtnInit(string btnName)
 	{
@@ -43,7 +47,26 @@ public class BuildPanel : BasePanel
 	{
 
 	}
-	
+	[Tooltip("ButtonBlock")]
+	public Vector3 BlockMoveDistance;
+	public Vector3 BlockOriginPos;
+	public float BlockMoveSpeed;
+	void UpdateButtonBlockPos(int index)
+    {
+        for (int i = 0; i < ButtonBlocks.Length; i++)
+        {
+			MoveBlock(ButtonBlocks[i], new Vector3(ButtonBlocks[i].position.x, BlockOriginPos.y, BlockOriginPos.z));
+			if (i == index)
+            {
+				MoveBlock(ButtonBlocks[i], ButtonBlocks[i].position + BlockMoveDistance);
+            }
+        }
+    }
+	void MoveBlock(Transform block,Vector3 targetPos)
+    {
+
+		block.transform.position = targetPos;
+    }
 	void fun()
 	{
 		Debug.Log("�������");
@@ -62,15 +85,19 @@ public class BuildPanel : BasePanel
 		switch (btnName)
 		{
 			case "btnBlock1":
+				UpdateButtonBlockPos(0);
 				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_1);
 				break;
 			case "btnBlock2":
+				UpdateButtonBlockPos(1);
 				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_2);
 				break;
 			case "btnBlock3":
+				UpdateButtonBlockPos(2);
 				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_3);
 				break;
 			case "btnBlock4":
+				UpdateButtonBlockPos(3);
 				EventCenter.Instance.EventTrigger<E_BlockNum>(E_EventType.E_Change_Block_For_Building, E_BlockNum.E_Block_4);
 				break;
 			//FIXME:buildPanel UI bug
