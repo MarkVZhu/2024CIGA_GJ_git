@@ -89,6 +89,6 @@ public class MainPanel : BasePanel {
 	//点击开始按钮的处理
 	public void ClickQuit()
 	{
-		Debug.Log("Quit Game");
+		Application.Quit();
 	}
 }
