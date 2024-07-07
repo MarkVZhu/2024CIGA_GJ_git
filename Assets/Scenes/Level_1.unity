@@ -2146,6 +2146,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3058284338718311919, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
+      propertyPath: m_GravityScale
+      value: 0.98
+      objectReference: {fileID: 0}
     - target: {fileID: 4217734897612995996, guid: b55083191191bf44cb26d063f6d4c560, type: 3}
       propertyPath: m_Name
       value: Car
@@ -2584,7 +2588,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.76470596, g: 0.6901961, b: 0.49411768, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
