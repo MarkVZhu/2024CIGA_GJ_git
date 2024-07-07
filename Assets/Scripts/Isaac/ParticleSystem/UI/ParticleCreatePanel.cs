@@ -100,6 +100,13 @@ public class ParticleCreatePanel : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
+            Vector3 mousepos = Input.mousePosition;
+            Point nextPoint = GetPointViaPosition(mousepos);
+
+            if(nextPoint.X<0 || nextPoint.X>4 || nextPoint.Y < 0 || nextPoint.Y > 4)
+            {
+                return;
+            }
             curState = MouseState.MouseUp;
             displayConnection();
 
@@ -107,6 +114,10 @@ public class ParticleCreatePanel : MonoBehaviour
             SaveBlock();
 
             EventCenter.Instance.EventTrigger(E_EventType.E_Block_Update);
+
+            SoundMgr.Instance.PlaySoundRandom(new string[] { 
+            "ButtonClick_Bubble2", "ButtonClick_Bubble3", "ButtonClick_Bubble4"});
+
             Debug.Log($"Hardness: {res[0]}, Smoothness: {res[1]}, Bounceness:{res[2]}");
         }
         if (Input.GetKeyDown(KeyCode.E))
