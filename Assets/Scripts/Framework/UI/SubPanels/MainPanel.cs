@@ -26,6 +26,7 @@ public class MainPanel : BasePanel {
 		// UIManager.AddCustomEventListener(GetControl<Button>("btnStart"), EventTriggerType.PointerExit, (data) => {
 		//     Debug.Log("离开");
 		// });
+		BGMControl.Pause();
 	}
 
 	private void Drag(BaseEventData data)
@@ -37,7 +38,7 @@ public class MainPanel : BasePanel {
 	{
 		//PointerDown逻辑
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape))
