@@ -29,6 +29,8 @@ public class MapPanel : BasePanel {
 
 		//Image im = GetControl<Image>("btnLevel2");
 		//im.sprite = ResMgr.Instance.Load<Sprite>("Image/testLevel");
+		BGMControl.Pause();
+		BGMControl.MapMusic();
 		Image btbg = GetControl<Image>("btnMain");
 		btbg.sprite = ResMgr.Instance.Load<Sprite>("Image/btn");
 		for (int i = 1; i <= btnnum; i++)

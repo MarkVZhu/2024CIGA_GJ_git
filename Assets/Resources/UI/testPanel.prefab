@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 3738481061255048253}
   - component: {fileID: 8637915791861537038}
   - component: {fileID: 1800684992476845651}
+  - component: {fileID: 5215755315527320624}
   m_Layer: 5
   m_Name: btnPause
   m_TagString: Untagged
@@ -467,6 +468,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5215755315527320624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448216551344033528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f17cfb09226a05478d079f6487e4846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6979622349966091881
 GameObject:
   m_ObjectHideFlags: 0
