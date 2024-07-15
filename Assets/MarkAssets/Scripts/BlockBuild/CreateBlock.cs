@@ -25,6 +25,7 @@ public class CreateBlock : MonoBehaviour
 		{
 			bc.blockNum = e_BlockNum;
 			Instantiate(customizedBlockPref, cellPosition, Quaternion.identity);
+			SoundMgr.Instance.PlaySound("Create");
 			limitNum--;
 			EventCenter.Instance.EventTrigger<int>(E_EventType.E_LimitNum_Change, limitNum);
 			Debug.Log("limitNum " + limitNum);
@@ -38,6 +39,7 @@ public class CreateBlock : MonoBehaviour
 	
 	void LimitNumRestore()
 	{
+		SoundMgr.Instance.PlaySound("Remove");
 		limitNum++;
 		EventCenter.Instance.EventTrigger<int>(E_EventType.E_LimitNum_Change, limitNum);
 	}

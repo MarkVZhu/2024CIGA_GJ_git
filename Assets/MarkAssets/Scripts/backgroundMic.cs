@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using MarkFramework;
 using UnityEngine;
 
-public class backgroundMic : MonoBehaviour
+public class BackgroundMic : MonoBehaviour
 {
 	void Awake() 
 	{
-		DontDestroyOnLoad(this); //If do not need, delete this line
+		//DontDestroyOnLoad(this); //If do not need, delete this line
 	}
 
 	// Update is called once per frame

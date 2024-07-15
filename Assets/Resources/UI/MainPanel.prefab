@@ -373,13 +373,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'CREDIT:
 
-    YZ_M
+    ZYF
 
-    TJ
+    JTY
 
-    YZ_E
+    ZYH
 
-    XL
+    LXY
 
 '
   m_isRightToLeft: 0
@@ -390,8 +390,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -591,9 +591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'START
-
-    GAME!!'
+  m_text: Molecular builder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c0bdc8ed115a93a42b29ad1bf1da16cb, type: 2}
   m_sharedMaterial: {fileID: 7096365587512092027, guid: c0bdc8ed115a93a42b29ad1bf1da16cb, type: 2}

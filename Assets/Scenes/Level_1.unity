@@ -4525,7 +4525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713cb0b3281cc7c4aae9c4d7c5663b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 30
   screenEdgeThreshold: 0.9
   MinBound: {x: -15, y: -9}
   MaxBound: {x: 15, y: 9}

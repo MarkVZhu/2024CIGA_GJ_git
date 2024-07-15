@@ -39,6 +39,7 @@ namespace MarkFramework
 				GameObject obj = new GameObject();
 				obj.name = "BkMusic";
 				bkMusic = obj.AddComponent<AudioSource>();
+				GameObject.DontDestroyOnLoad(obj);
 			}
 			
 			ResMgr.Instance.LoadAsync<AudioClip>("Audio/BGM/" + name, (clip) =>
